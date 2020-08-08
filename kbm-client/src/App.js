@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Store from './components/Store';
 import Dashboard from './components/Dashboard';
 import Header from './components/layout/Header';
 import CreateProject from './components/project/CreateProject';
@@ -9,13 +11,13 @@ import 'bootswatch/dist/lux/bootstrap.css';
 
 function App() {
   return (
-    <div className='App'>
+    <Provider store={Store}>
       <Router>
         <Header />
         <Route exact path='/dashboard' component={Dashboard} />
         <Route exact path='/addProject' component={CreateProject} />
       </Router>
-    </div>
+    </Provider>
   );
 }
 
