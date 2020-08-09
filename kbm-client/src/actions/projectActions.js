@@ -1,4 +1,5 @@
 import axios from 'axios';
+import swal from 'sweetalert2';
 import { GET_PROJECTS, GET_PROJECT, GET_ERRORS, DELETE_PROJECT } from './types';
 
 export const createProject = (project, history) => async dispatch => {
@@ -26,7 +27,16 @@ export const getProject = (projectID, history) => async dispatch => {
 };
 
 export const deleteProject = (projectID, history) => async dispatch => {
-  if (window.confirm(`You sure you want to delete ${projectID}?`)) {
+  const { isConfirmed } = await swal.fire({
+    text: `You sure you want to delete ${projectID}?`,
+    icon: 'warning',
+    showCancelButton: true,
+    backdrop: true,
+    confirmButtonColor: '#FF7851',
+    confirmButtonText: 'Yes, delete it!'
+  });
+
+  if (isConfirmed) {
     try {
       await axios.delete(`/api/project/${projectID}`);
       dispatch({ type: DELETE_PROJECT, projectID });

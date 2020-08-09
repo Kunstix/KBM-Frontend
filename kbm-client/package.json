@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.2",
+    "bootstrap-sweetalert": "^1.0.1",
     "bootswatch": "^4.5.1",
     "classnames": "^2.2.6",
     "react": "^16.13.1",
@@ -16,7 +17,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^9.17.1"
   },
   "scripts": {
     "start": "react-scripts start",

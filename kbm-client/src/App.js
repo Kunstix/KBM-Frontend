@@ -8,7 +8,7 @@ import CreateProject from './components/project/CreateProject';
 import UpdateProject from './components/project/UpdateProject';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootswatch/dist/lux/bootstrap.css';
+import 'bootswatch/dist/minty/bootstrap.css';
 
 function App() {
   return (
