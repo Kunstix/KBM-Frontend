@@ -1,7 +1,9 @@
 package io.kunstix.kbm.services;
 
+import io.kunstix.kbm.domain.Backlog;
 import io.kunstix.kbm.domain.Project;
 import io.kunstix.kbm.exceptions.ProjectIdException;
+import io.kunstix.kbm.repositories.BacklogRepository;
 import io.kunstix.kbm.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +14,21 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private BacklogRepository backlogRepository;
+
     public Project saveOrUpdateProject(Project project) {
+        String projectID = project.getProjectID().toUpperCase();
         try {
-            project.setProjectID(project.getProjectID().toUpperCase());
+            project.setProjectID(projectID);
+
+            if(project.getId() != null) {
+                project.setBacklog(backlogRepository.findByProjectID(projectID));
+            }
+
             return projectRepository.save(project);
         } catch (Exception e) {
-            throw new ProjectIdException("Project ID <" + project.getProjectID().toUpperCase() + "> has to be unique.");
+            throw new ProjectIdException("Project ID <" + projectID + "> has to be unique.");
         }
 
     }

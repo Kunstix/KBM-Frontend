@@ -1,6 +1,7 @@
 package io.kunstix.kbm.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -38,12 +39,22 @@ public class Project {
     @JsonFormat(pattern ="yyyy-mm-dd")
     private Date updatedAt;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+    @JsonIgnore
+    private Backlog backlog;
+
     public Project() {
     }
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();
+        if(this.getId() == null) {
+            Backlog backlog = new Backlog();
+            setBacklog(backlog);
+            backlog.setProject(this);
+            backlog.setProjectID(this.getProjectID().toUpperCase());
+        }
     }
 
     @PreUpdate
@@ -113,5 +124,13 @@ public class Project {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
     }
 }
