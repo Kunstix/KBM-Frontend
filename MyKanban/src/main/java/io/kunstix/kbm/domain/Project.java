@@ -17,7 +17,7 @@ public class Project {
     @NotBlank(message = "Project name is required")
     private String projectName;
 
-    @NotBlank(message = "ProjectID name is required")
+    @NotBlank(message = "ProjectID is required")
     @Size(min=4, max=5, message = "Length between 4 to 5 required")
     @Column(updatable = false, unique = true)
     private String projectID;
@@ -32,6 +32,7 @@ public class Project {
     private Date endDate;
 
     @JsonFormat(pattern ="yyyy-mm-dd")
+    @Column(updatable = false)
     private Date createdAt;
 
     @JsonFormat(pattern ="yyyy-mm-dd")

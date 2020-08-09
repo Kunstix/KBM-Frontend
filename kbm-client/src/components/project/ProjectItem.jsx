@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import ProptTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { deleteProject } from '../../actions/projectActions';
 
 class ProjectItem extends Component {
+  onDelete = projectID => {
+    this.props.deleteProject(projectID);
+  };
+
   render() {
     const { project } = this.props;
     return (
@@ -16,24 +24,25 @@ class ProjectItem extends Component {
             </div>
             <div className='col-md-4 d-none d-md-block'>
               <ul className='list-group'>
-                <a href='#'>
+                <Link to={`/showProject/${project.projectID}`}>
                   <li className='list-group-item board'>
                     <span className='fa fa-flag-checkered pr-1 text-primary' />
                     <span className='text-primary'>Project Board</span>
                   </li>
-                </a>
-                <a href='#'>
+                </Link>
+                <Link to={`/updateProject/${project.projectID}`}>
                   <li className='list-group-item update'>
                     <span className='fa fa-edit pr-1 text-info' />
                     <span className='text-info'>Update Info</span>
                   </li>
-                </a>
-                <a href=''>
-                  <li className='list-group-item delete'>
-                    <span className='fa fa-minus-circle pr-1 text-danger' />
-                    <span className='text-danger'>Delete Project</span>
-                  </li>
-                </a>
+                </Link>
+                <li
+                  className='list-group-item delete'
+                  onClick={() => this.onDelete(project.projectID)}
+                >
+                  <span className='fa fa-minus-circle pr-1 text-danger' />
+                  <span className='text-danger'>Delete Project</span>
+                </li>
               </ul>
             </div>
           </div>
@@ -43,4 +52,8 @@ class ProjectItem extends Component {
   }
 }
 
-export default ProjectItem;
+ProjectItem.proptTypes = {
+  deleteProject: ProptTypes.func.isRequired
+};
+
+export default connect(null, { deleteProject })(ProjectItem);

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { createProject } from '../../actions/projectActions';
+import { getProject, createProject } from '../../actions/projectActions';
 
-class CreateProject extends Component {
+class UpdateProject extends Component {
   constructor() {
     super();
 
     this.state = {
+      id: '',
       projectName: '',
       projectID: '',
       description: '',
@@ -24,20 +25,33 @@ class CreateProject extends Component {
     }
   }
 
+  componentDidMount() {
+    console.log('mount');
+    const { projectID } = this.props.match.params;
+    this.props.getProject(projectID, this.props.history);
+  }
+
+  componentDidUpdate(nextProps, state, snapshot) {
+    if (this.props.project !== nextProps.project) {
+      this.setState({ ...this.props.project });
+    }
+  }
+
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
   onSubmit(event) {
     event.preventDefault();
-    const newProject = {
-      projectName: this.state.projectName,
+    const updatedProject = {
+      id: this.state.id,
       projectID: this.state.projectID,
+      projectName: this.state.projectName,
       description: this.state.description,
       startDate: this.state.startDate,
       endDate: this.state.endDate
     };
-    this.props.createProject(newProject, this.props.history);
+    this.props.createProject(updatedProject, this.props.history);
   }
 
   render() {
@@ -47,7 +61,7 @@ class CreateProject extends Component {
         <div className='container'>
           <div className='row'>
             <div className='col-md-8 m-auto'>
-              <h5 className='display-4 text-center'>Create / Edit Project </h5>
+              <h5 className='display-4 text-center'>Edit Project</h5>
               <hr />
               <form onSubmit={event => this.onSubmit(event)}>
                 <div className='form-group'>
@@ -68,17 +82,12 @@ class CreateProject extends Component {
                 <div className='form-group'>
                   <input
                     type='text'
-                    className={classNames('form-control form-control-md', {
-                      'is-invalid': errors.projectID
-                    })}
+                    className='form-control form-control-md'
                     placeholder='Unique Project ID'
                     name='projectID'
                     value={this.state.projectID}
-                    onChange={event => this.onChange(event)}
+                    disabled
                   />
-                  {errors.projectID && (
-                    <div className='invalid-feedback'>{errors.projectID}</div>
-                  )}
                 </div>
                 <div className='form-group'>
                   <textarea
@@ -89,7 +98,7 @@ class CreateProject extends Component {
                     name='description'
                     value={this.state.description}
                     onChange={event => this.onChange(event)}
-                  ></textarea>
+                  />
                   {errors.description && (
                     <div className='invalid-feedback'>{errors.description}</div>
                   )}
@@ -138,13 +147,18 @@ class CreateProject extends Component {
   }
 }
 
-CreateProject.propTypes = {
+UpdateProject.propTypes = {
+  getProject: PropTypes.func.isRequired,
   createProject: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
+  project: state.project.project,
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { createProject })(CreateProject);
+export default connect(mapStateToProps, { getProject, createProject })(
+  UpdateProject
+);
