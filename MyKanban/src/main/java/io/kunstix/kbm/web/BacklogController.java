@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,7 +29,7 @@ public class BacklogController {
         Optional<ResponseEntity<?>> errorResult = validationErrorService.validate(result);
         if (errorResult.isPresent()) return errorResult.get();
 
-        ProjectTask newProject = projectTaskService.createProjectTask(projectID, projectTask);
+        ProjectTask newProject = projectTaskService.createProjectTask(projectID.toUpperCase(), projectTask);
 
         return new ResponseEntity<>(newProject, HttpStatus.CREATED);
     }
@@ -38,5 +37,28 @@ public class BacklogController {
     @GetMapping("/{projectID}")
     public Iterable<ProjectTask> getBacklog(@PathVariable String projectID) {
         return projectTaskService.findBacklogById(projectID.toUpperCase());
+    }
+
+    @GetMapping("/{projectID}/{sequence}")
+    public ResponseEntity<?> getTask(@PathVariable String projectID, @PathVariable String sequence) {
+        ProjectTask projectTask = projectTaskService.findProjectTaskByProjectIDAndSequence(projectID.toUpperCase(), sequence);
+        return new ResponseEntity<>(projectTask, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{projectID}/{sequence}")
+    public ResponseEntity<?> updateTask(@Valid @RequestBody ProjectTask updatedTask, BindingResult result,
+                                        @PathVariable String projectID, @PathVariable String sequence) {
+
+        Optional<ResponseEntity<?>> errorResult = validationErrorService.validate(result);
+        if (errorResult.isPresent()) return errorResult.get();
+
+        projectTaskService.updateByProjectIDAndSequence(updatedTask, projectID, sequence);
+        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{projectID}/{sequence}")
+    public ResponseEntity<?> deleteTask(@PathVariable String projectID, @PathVariable String sequence) {
+        projectTaskService.deleteTaskByProjectIDAndSequence(projectID, sequence);
+        return new ResponseEntity<>("Task with projectID <" + projectID + "> and sequence <" + sequence + "> was deleted successfully", HttpStatus.OK);
     }
 }

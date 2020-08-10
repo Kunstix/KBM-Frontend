@@ -3,6 +3,7 @@ package io.kunstix.kbm.services;
 import io.kunstix.kbm.domain.Backlog;
 import io.kunstix.kbm.domain.Project;
 import io.kunstix.kbm.exceptions.ProjectIdException;
+import io.kunstix.kbm.exceptions.ProjectNotFoundException;
 import io.kunstix.kbm.repositories.BacklogRepository;
 import io.kunstix.kbm.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class ProjectService {
         Project loadedProject = projectRepository.findByProjectID(projectID.toUpperCase());
 
         if (loadedProject == null) {
-            throw new ProjectIdException("Can not delete project with ID <" + projectID.toUpperCase() + "> because it does not exist.");
+            throw new ProjectNotFoundException("Can not delete project with ID <" + projectID.toUpperCase() + "> because it does not exist.");
         }
 
         projectRepository.delete(loadedProject);

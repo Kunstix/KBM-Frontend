@@ -18,7 +18,7 @@ public class ProjectTask {
     @Column(updatable = false)
     private String projectID;
 
-    @Column(updatable = false)
+    @Column(updatable = false, unique = true)
     private String projectSequence;
 
     @NotBlank(message = "Project summary is required.")
@@ -36,7 +36,7 @@ public class ProjectTask {
 
     private Date updatedAt;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "backlog_id", updatable = false, nullable = false)
     @JsonIgnore
     private Backlog backlog;
