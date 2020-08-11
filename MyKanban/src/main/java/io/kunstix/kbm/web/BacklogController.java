@@ -1,6 +1,6 @@
 package io.kunstix.kbm.web;
 
-import io.kunstix.kbm.domain.ProjectTask;
+import io.kunstix.kbm.domain.Task;
 import io.kunstix.kbm.services.ProjectTaskService;
 import io.kunstix.kbm.services.ValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +24,29 @@ public class BacklogController {
     private ValidationErrorService validationErrorService;
 
     @PostMapping("/{projectID}")
-    public ResponseEntity<?> createProjectTaskToBacklog(@Valid @RequestBody ProjectTask projectTask, BindingResult result, @PathVariable String projectID) {
+    public ResponseEntity<?> createProjectTaskToBacklog(@Valid @RequestBody Task task, BindingResult result, @PathVariable String projectID) {
 
         Optional<ResponseEntity<?>> errorResult = validationErrorService.validate(result);
         if (errorResult.isPresent()) return errorResult.get();
 
-        ProjectTask newProject = projectTaskService.createProjectTask(projectID.toUpperCase(), projectTask);
+        Task newProject = projectTaskService.createProjectTask(projectID.toUpperCase(), task);
 
         return new ResponseEntity<>(newProject, HttpStatus.CREATED);
     }
 
     @GetMapping("/{projectID}")
-    public Iterable<ProjectTask> getBacklog(@PathVariable String projectID) {
+    public Iterable<Task> getBacklog(@PathVariable String projectID) {
         return projectTaskService.findBacklogById(projectID.toUpperCase());
     }
 
     @GetMapping("/{projectID}/{sequence}")
     public ResponseEntity<?> getTask(@PathVariable String projectID, @PathVariable String sequence) {
-        ProjectTask projectTask = projectTaskService.findProjectTaskByProjectIDAndSequence(projectID.toUpperCase(), sequence);
-        return new ResponseEntity<>(projectTask, HttpStatus.OK);
+        Task task = projectTaskService.findProjectTaskByProjectIDAndSequence(projectID.toUpperCase(), sequence);
+        return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
     @PatchMapping("/{projectID}/{sequence}")
-    public ResponseEntity<?> updateTask(@Valid @RequestBody ProjectTask updatedTask, BindingResult result,
+    public ResponseEntity<?> updateTask(@Valid @RequestBody Task updatedTask, BindingResult result,
                                         @PathVariable String projectID, @PathVariable String sequence) {
 
         Optional<ResponseEntity<?>> errorResult = validationErrorService.validate(result);

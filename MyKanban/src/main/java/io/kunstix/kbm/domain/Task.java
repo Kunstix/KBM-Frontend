@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
-public class ProjectTask {
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class ProjectTask {
     private String projectID;
 
     @Column(updatable = false, unique = true)
-    private String projectSequence;
+    private String sequence;
 
     @NotBlank(message = "Project summary is required.")
     private String summary;
@@ -41,7 +41,7 @@ public class ProjectTask {
     @JsonIgnore
     private Backlog backlog;
 
-    public ProjectTask() {
+    public Task() {
     }
 
     @PrePersist
@@ -70,12 +70,12 @@ public class ProjectTask {
         this.projectID = projectID;
     }
 
-    public String getProjectSequence() {
-        return projectSequence;
+    public String getSequence() {
+        return sequence;
     }
 
-    public void setProjectSequence(String projectSequence) {
-        this.projectSequence = projectSequence;
+    public void setSequence(String sequence) {
+        this.sequence = sequence;
     }
 
     public String getSummary() {
@@ -147,7 +147,7 @@ public class ProjectTask {
         return "ProjectTask{" +
                 "id=" + id +
                 ", projectID='" + projectID + '\'' +
-                ", projectSequence='" + projectSequence + '\'' +
+                ", sequence='" + sequence + '\'' +
                 ", summary='" + summary + '\'' +
                 ", acceptanceCriteria='" + acceptanceCriteria + '\'' +
                 ", status='" + status + '\'' +

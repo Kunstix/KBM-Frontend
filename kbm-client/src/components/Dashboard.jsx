@@ -14,7 +14,7 @@ class Dashboard extends Component {
     const { projects } = this.props.project;
     return (
       <div className='projects'>
-        <div className='container'>
+        <div className='container-fluid'>
           <div className='row'>
             <div className='col-md-12'>
               <h1 className='display-4 text-center'>Projects</h1>

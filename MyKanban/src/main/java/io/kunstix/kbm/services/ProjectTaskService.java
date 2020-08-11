@@ -1,11 +1,11 @@
 package io.kunstix.kbm.services;
 
 import io.kunstix.kbm.domain.Backlog;
-import io.kunstix.kbm.domain.ProjectTask;
+import io.kunstix.kbm.domain.Task;
 import io.kunstix.kbm.exceptions.ProjectNotFoundException;
 import io.kunstix.kbm.repositories.BacklogRepository;
 import io.kunstix.kbm.repositories.ProjectRepository;
-import io.kunstix.kbm.repositories.ProjectTaskRespository;
+import io.kunstix.kbm.repositories.TaskRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,34 +16,34 @@ public class ProjectTaskService {
     private BacklogRepository backlogRepository;
 
     @Autowired
-    private ProjectTaskRespository projectTaskRepository;
+    private TaskRespository projectTaskRepository;
 
 
     @Autowired
     private ProjectRepository projectRepository;
 
-    public ProjectTask createProjectTask(String projectID, ProjectTask projectTask) {
+    public Task createProjectTask(String projectID, Task task) {
         Backlog backlog = backlogRepository.findByProjectID(projectID);
 
         if (backlog == null) {
             throw new ProjectNotFoundException("Project with ID <" + projectID + "> does not exist");
         }
 
-        projectTask.setBacklog(backlog);
+        task.setBacklog(backlog);
         backlog.setPTSequence(backlog.getPTSequence() + 1);
-        projectTask.setProjectID(projectID);
-        projectTask.setProjectSequence(backlog.getProjectID() + "-" + backlog.getPTSequence());
+        task.setProjectID(projectID);
+        task.setSequence(backlog.getProjectID() + "-" + backlog.getPTSequence());
 
-        if (projectTask.getPriority() == null) {
-            projectTask.setPriority(TaskPriority.MEDIUM);
+        if (task.getPriority() == null) {
+            task.setPriority(TaskPriority.MEDIUM);
         }
-        if (projectTask.getStatus() == null) {
-            projectTask.setStatus(TaskStatus.TODO);
+        if (task.getStatus() == null) {
+            task.setStatus(TaskStatus.TODO);
         }
-        return projectTaskRepository.save(projectTask);
+        return projectTaskRepository.save(task);
     }
 
-    public ProjectTask findProjectTaskByProjectIDAndSequence(String projectID, String sequence) {
+    public Task findProjectTaskByProjectIDAndSequence(String projectID, String sequence) {
 
         Backlog backlog = backlogRepository.findByProjectID(projectID);
 
@@ -51,27 +51,27 @@ public class ProjectTaskService {
             throw new ProjectNotFoundException("Project with ID <" + projectID + "> does not exist");
         }
 
-        ProjectTask projectTask = projectTaskRepository.findByProjectIDAndProjectSequence(projectID, sequence);
+        Task task = projectTaskRepository.findByProjectIDAndSequence(projectID, sequence);
 
-        if (projectTask == null) {
+        if (task == null) {
             throw new ProjectNotFoundException("Task with projectID <" + projectID + "> and sequence <" + sequence + "> does not exist");
         }
 
-        return projectTask;
+        return task;
     }
 
-    public ProjectTask updateByProjectIDAndSequence(ProjectTask updatedTask, String projectID, String sequence) {
+    public Task updateByProjectIDAndSequence(Task updatedTask, String projectID, String sequence) {
         findProjectTaskByProjectIDAndSequence(projectID, sequence);
         return projectTaskRepository.save(updatedTask);
 
     }
 
     public void deleteTaskByProjectIDAndSequence(String projectID, String sequence) {
-        ProjectTask projectTask = findProjectTaskByProjectIDAndSequence(projectID, sequence);
-        projectTaskRepository.delete(projectTask);
+        Task task = findProjectTaskByProjectIDAndSequence(projectID, sequence);
+        projectTaskRepository.delete(task);
     }
 
-    public Iterable<ProjectTask> findBacklogById(String projectID) {
+    public Iterable<Task> findBacklogById(String projectID) {
         if (projectRepository.findByProjectID(projectID) == null) {
             throw new ProjectNotFoundException("Project with ID <" + projectID + "> does not exist");
         }

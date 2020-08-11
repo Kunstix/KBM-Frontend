@@ -23,7 +23,7 @@ public class Backlog {
     private Project project;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, mappedBy = "backlog", orphanRemoval = true)
-    private List<ProjectTask> projectTaskList = new ArrayList<>();
+    private List<Task> taskList = new ArrayList<>();
 
     public Backlog() {
     }
@@ -60,11 +60,11 @@ public class Backlog {
         this.project = project;
     }
 
-    public List<ProjectTask> getProjectTasks() {
-        return projectTaskList;
+    public List<Task> getProjectTasks() {
+        return taskList;
     }
 
-    public void setProjectTaskList(List<ProjectTask> projectTaskList) {
-        this.projectTaskList = projectTaskList;
+    public void setProjectTaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 }
