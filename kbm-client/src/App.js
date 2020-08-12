@@ -25,6 +25,11 @@ function App() {
           component={UpdateProject}
         />
         <Route exact path='/board/:projectID' component={Board} />
+        <Route
+          exact
+          path='/updateTask/:projectID/:sequence'
+          component={CreateTask}
+        />
         <Route exact path='/createTask/:projectID' component={CreateTask} />
       </Router>
     </Provider>

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { createTask } from '../../actions/backlogActions';
+import { getTask, createTask, updateTask } from '../../actions/backlogActions';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 class CreateTask extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class CreateTask extends Component {
 
     const { projectID } = this.props.match.params;
     this.state = {
+      id: '',
       summary: '',
       projectID: projectID,
       acceptanceCriteria: '',
@@ -21,9 +23,27 @@ class CreateTask extends Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.match.params.sequence) {
+      console.log('mount');
+      const { projectID, sequence } = this.props.match.params;
+      this.props.getTask(projectID, sequence, this.props.history);
+    }
+  }
+
   static getDerivedStateFromProps(nextProps, prevProps) {
     if (nextProps.errors) {
       return { errors: nextProps.errors };
+    }
+  }
+
+  componentDidUpdate(nextProps, state, snapshot) {
+    console.log('update1');
+
+    if (this.props.task !== nextProps.task) {
+      console.log('update');
+
+      this.setState({ ...this.props.task });
     }
   }
 
@@ -41,7 +61,10 @@ class CreateTask extends Component {
       priority: this.state.priority,
       dueDate: this.state.dueDate
     };
-    console.log(newTask);
+    if (this.state.id) {
+      newTask['id'] = this.state.id;
+      this.props.updateTask(newTask, this.props.history);
+    }
     this.props.createTask(newTask, this.props.history);
   }
 
@@ -57,9 +80,7 @@ class CreateTask extends Component {
               <Link to={`/board/${projectID}`} className='btn btn-light'>
                 Back to Project Board
               </Link>
-              <h4 className='display-5 text-center'>
-                Add /Update Project Task
-              </h4>
+              <h4 className='display-5 text-center'>Edit Project Task</h4>
               <p className='lead text-center'>Project Name + Project Code</p>
               <form onSubmit={event => this.onSubmit(event)}>
                 <div className='form-group'>
@@ -70,7 +91,7 @@ class CreateTask extends Component {
                     })}
                     name='summary'
                     placeholder='Task summary'
-                    value={this.state.summary}
+                    value={this.state.summary || ''}
                     onChange={event => this.onChange(event)}
                   />
                   {errors.summary && (
@@ -84,7 +105,7 @@ class CreateTask extends Component {
                     })}
                     placeholder='Acceptance Criteria'
                     name='acceptanceCriteria'
-                    value={this.state.acceptanceCriteria}
+                    value={this.state.acceptanceCriteria || ''}
                     onChange={event => this.onChange(event)}
                   ></textarea>
                 </div>
@@ -97,9 +118,11 @@ class CreateTask extends Component {
                 <div className='form-group'>
                   <input
                     type='date'
-                    class='form-control form-control-md'
+                    className='form-control form-control-md'
                     name='dueDate'
-                    value={this.state.dueDate}
+                    value={
+                      moment.utc(this.state.dueDate).format('YYYY-MM-DD') || ''
+                    }
                     onChange={event => this.onChange(event)}
                   />
                 </div>
@@ -111,11 +134,9 @@ class CreateTask extends Component {
                     onChange={event => this.onChange(event)}
                   >
                     <option value={''}>Select Priority</option>
-                    <option value={'HIGHEST'}>Highest</option>
                     <option value={'HIGH'}>High</option>
                     <option value={'MEDIUM'}>Medium</option>
                     <option value={'LOW'}>Low</option>
-                    <option value={'LOWEST'}>Lowest</option>
                   </select>
                 </div>
 
@@ -126,7 +147,7 @@ class CreateTask extends Component {
                     value={this.state.status}
                     onChange={event => this.onChange(event)}
                   >
-                    <option value='TODO'>Select Status</option>
+                    <option value=''>Select Status</option>
                     <option value='TODO'>TODO</option>
                     <option value='IN_DESIGN'>IN DESIGN</option>
                     <option value='IN_PROGRESS'>IN PROGRESS</option>
@@ -151,12 +172,17 @@ class CreateTask extends Component {
 }
 
 CreateTask.propTypes = {
+  getTask: PropTypes.func.isRequired,
   createTask: PropTypes.func.isRequired,
+  updateTask: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
+  task: state.backlog.task,
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { createTask })(CreateTask);
+export default connect(mapStateToProps, { getTask, updateTask, createTask })(
+  CreateTask
+);
