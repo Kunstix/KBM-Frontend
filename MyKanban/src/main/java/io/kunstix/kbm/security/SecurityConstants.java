@@ -1,4 +1,4 @@
-package io.kunstix.kbm.services;
+package io.kunstix.kbm.security;
 
 public class SecurityConstants {
 

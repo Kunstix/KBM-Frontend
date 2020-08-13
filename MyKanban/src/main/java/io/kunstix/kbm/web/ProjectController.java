@@ -10,8 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
+import java.security.Principal;
 import java.util.Optional;
 
 @RestController
@@ -26,29 +25,28 @@ public class ProjectController {
     private ValidationErrorService validationErrorService;
 
     @PostMapping("")
-    public ResponseEntity<?> createProject(@Valid @RequestBody Project project, BindingResult result) {
-
+    public ResponseEntity<?> createProject(@Valid @RequestBody Project project, BindingResult result, Principal principal) {
         Optional<ResponseEntity<?>> errorResult = validationErrorService.validate(result);
         if (errorResult.isPresent()) return errorResult.get();
 
-        Project savedProject = projectService.saveOrUpdateProject(project);
+        Project savedProject = projectService.saveOrUpdateProject(project, principal.getName());
         return new ResponseEntity<>(savedProject, HttpStatus.CREATED);
     }
 
     @GetMapping("/{projectID}")
-    public ResponseEntity<?> loadProject(@PathVariable String projectID) {
-        Project loadedProject = projectService.loadProject(projectID);
+    public ResponseEntity<?> loadProject(@PathVariable String projectID, Principal principal) {
+        Project loadedProject = projectService.loadProject(projectID, principal.getName());
         return new ResponseEntity<Project>(loadedProject, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public Iterable<Project> loadProjects() {
-        return projectService.loadAllProjects();
+    public Iterable<Project> loadProjects(Principal principal) {
+        return projectService.loadAllProjects(principal.getName());
     }
 
     @DeleteMapping("/{projectID}")
-    public ResponseEntity<?> deleteProject(@PathVariable String projectID) {
-        projectService.deleteProject(projectID);
+    public ResponseEntity<?> deleteProject(@PathVariable String projectID, Principal principal) {
+        projectService.deleteProject(projectID, principal.getName());
         return new ResponseEntity<>("Project with ID <" + projectID + "> was deleted successfully", HttpStatus.OK);
     }
 }

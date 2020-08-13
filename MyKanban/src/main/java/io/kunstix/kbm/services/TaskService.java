@@ -9,8 +9,13 @@ import io.kunstix.kbm.repositories.TaskRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+
 @Service
-public class ProjectTaskService {
+public class TaskService {
+
+    @Autowired
+    private ProjectService projectService;
 
     @Autowired
     private BacklogRepository backlogRepository;
@@ -22,8 +27,8 @@ public class ProjectTaskService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public Task createProjectTask(String projectID, Task task) {
-        Backlog backlog = backlogRepository.findByProjectID(projectID);
+    public Task createProjectTask(String projectID, Task task, String username) {
+        Backlog backlog = projectService.loadProject(projectID, username).getBacklog();
 
         if (backlog == null) {
             throw new ProjectNotFoundException("Project with ID <" + projectID + "> does not exist");
@@ -43,9 +48,9 @@ public class ProjectTaskService {
         return projectTaskRepository.save(task);
     }
 
-    public Task findProjectTaskByProjectIDAndSequence(String projectID, String sequence) {
+    public Task findProjectTaskByProjectIDAndSequence(String projectID, String sequence, String username) {
 
-        Backlog backlog = backlogRepository.findByProjectID(projectID);
+        Backlog backlog = projectService.loadProject(projectID, username).getBacklog();
 
         if (backlog == null) {
             throw new ProjectNotFoundException("Project with ID <" + projectID + "> does not exist");
@@ -60,21 +65,19 @@ public class ProjectTaskService {
         return task;
     }
 
-    public Task updateByProjectIDAndSequence(Task updatedTask, String projectID, String sequence) {
-        findProjectTaskByProjectIDAndSequence(projectID, sequence);
+    public Task updateByProjectIDAndSequence(Task updatedTask, String projectID, String sequence, String username) {
+        findProjectTaskByProjectIDAndSequence(projectID, sequence, username);
         return projectTaskRepository.save(updatedTask);
 
     }
 
-    public void deleteTaskByProjectIDAndSequence(String projectID, String sequence) {
-        Task task = findProjectTaskByProjectIDAndSequence(projectID, sequence);
+    public void deleteTaskByProjectIDAndSequence(String projectID, String sequence, String username) {
+        Task task = findProjectTaskByProjectIDAndSequence(projectID, sequence, username);
         projectTaskRepository.delete(task);
     }
 
-    public Iterable<Task> findBacklogById(String projectID) {
-        if (projectRepository.findByProjectID(projectID) == null) {
-            throw new ProjectNotFoundException("Project with ID <" + projectID + "> does not exist");
-        }
+    public Iterable<Task> findBacklogById(String projectID, String username) {
+        projectService.loadProject(projectID, username);
         return projectTaskRepository.findByProjectIDOrderByPriority(projectID);
     }
 }

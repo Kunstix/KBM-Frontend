@@ -1,10 +1,12 @@
 package io.kunstix.kbm.services;
 
 import io.kunstix.kbm.domain.Project;
+import io.kunstix.kbm.domain.User;
 import io.kunstix.kbm.exceptions.ProjectAlreadyExistsException;
 import io.kunstix.kbm.exceptions.ProjectNotFoundException;
 import io.kunstix.kbm.repositories.BacklogRepository;
 import io.kunstix.kbm.repositories.ProjectRepository;
+import io.kunstix.kbm.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +19,22 @@ public class ProjectService {
     @Autowired
     private BacklogRepository backlogRepository;
 
-    public Project saveOrUpdateProject(Project project) {
+    @Autowired
+    private UserRepository userRepository;
+
+    public Project saveOrUpdateProject(Project project, String username) {
         String projectID = project.getProjectID().toUpperCase();
+        if (project.getId() != null) {
+            loadProject(projectID, username);
+        }
+
         try {
+            User user = userRepository.findByUsername(username);
+            project.setUser(user);
+            project.setProjectLeader(username);
             project.setProjectID(projectID);
 
-            if(project.getId() != null) {
+            if (project.getId() != null) {
                 project.setBacklog(backlogRepository.findByProjectID(projectID));
             }
 
@@ -33,29 +45,25 @@ public class ProjectService {
 
     }
 
-    public Project loadProject(String projectID) {
+    public Project loadProject(String projectID, String username) {
 
-        Project loadedProject = projectRepository.findByProjectID(projectID.toUpperCase());
-
+        String pID = projectID.toUpperCase();
+        Project loadedProject = projectRepository.findByProjectID(pID);
         if (loadedProject == null) {
-            throw new ProjectNotFoundException("Project with ID <" + projectID.toUpperCase() + "> does not exist.");
+            throw new ProjectNotFoundException("Project with ID <" + pID + "> does not exist.");
+        }
+        if (!loadedProject.getProjectLeader().equals(username)) {
+            throw new ProjectNotFoundException("Project <" + pID + "> not found in your account.");
         }
 
         return loadedProject;
     }
 
-    public Iterable<Project> loadAllProjects() {
-        return projectRepository.findAll();
+    public Iterable<Project> loadAllProjects(String username) {
+        return projectRepository.findAllByProjectLeader(username);
     }
 
-    public void deleteProject(String projectID) {
-
-        Project loadedProject = projectRepository.findByProjectID(projectID.toUpperCase());
-
-        if (loadedProject == null) {
-            throw new ProjectNotFoundException("Can not delete project with ID <" + projectID.toUpperCase() + "> because it does not exist.");
-        }
-
-        projectRepository.delete(loadedProject);
+    public void deleteProject(String projectID, String name) {
+        projectRepository.delete(loadProject(projectID.toUpperCase(), name));
     }
 }

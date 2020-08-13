@@ -1,7 +1,6 @@
 package io.kunstix.kbm.security;
 
 import io.kunstix.kbm.services.CustomeUserDetailsService;
-import io.kunstix.kbm.services.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +31,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private JwtAuthentificationEntryPoint unauthorizedHandler;
+    private JWTAuthentificationEntryPoint unauthorizedHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -56,11 +56,17 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(SecurityConstants.SIGN_UP_URLS).permitAll()
                 .antMatchers(SecurityConstants.H2_URL).permitAll()
                 .anyRequest().authenticated();
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
+    }
+
+    @Bean
+    public JWTAuthenticationFilter jwtAuthenticationFilter() {
+        return new JWTAuthenticationFilter();
     }
 }

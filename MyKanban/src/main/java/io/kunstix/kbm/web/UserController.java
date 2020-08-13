@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.Optional;
 
-import static io.kunstix.kbm.services.SecurityConstants.TOKEN_PREFIX;
+import static io.kunstix.kbm.security.SecurityConstants.TOKEN_PREFIX;
 
 @RestController
 @RequestMapping("api/users")
