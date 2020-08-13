@@ -52,11 +52,7 @@ class Board extends Component {
 
     return (
       <div className='container-fluid'>
-        <Link
-          to={`/createTask/${projectID}`}
-          href='#'
-          className='btn btn-primary mb-3'
-        >
+        <Link to={`/createTask/${projectID}`} className='btn btn-primary mb-3'>
           <span className='fas fa-plus-circle' />
           <span> Create Task</span>
         </Link>

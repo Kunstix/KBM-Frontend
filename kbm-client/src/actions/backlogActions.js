@@ -1,4 +1,6 @@
 import axios from 'axios';
+import swal from 'sweetalert2';
+
 import {
   GET_BACKLOG,
   GET_TASK,
@@ -53,16 +55,20 @@ export const updateTask = (task, history) => async dispatch => {
   }
 };
 
-export const deleteProjectTask = (projectID, pt_id) => async dispatch => {
-  if (
-    window.confirm(
-      `You are deleting project task ${pt_id}, this action cannot be undone`
-    )
-  ) {
-    await axios.delete(`/api/backlog/${projectID}/${pt_id}`);
+export const deleteTask = (projectID, sequence) => async dispatch => {
+  const { isConfirmed } = await swal.fire({
+    text: `You sure you want to delete ${projectID}?`,
+    icon: 'warning',
+    showCancelButton: true,
+    backdrop: true,
+    confirmButtonColor: '#FF7851',
+    confirmButtonText: 'Yes, delete it!'
+  });
+  if (isConfirmed) {
+    await axios.delete(`/api/backlog/${projectID}/${sequence}`);
     dispatch({
       type: DELETE_TASK,
-      payload: pt_id
+      payload: sequence
     });
   }
 };

@@ -10,7 +10,7 @@ import Board from './components/board/Board';
 import CreateTask from './components/tasks/CreateTask';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootswatch/dist/minty/bootstrap.css';
+import 'bootswatch/dist/lux/bootstrap.css';
 
 function App() {
   return (

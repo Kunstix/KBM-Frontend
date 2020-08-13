@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import DeleteTaskButton from './DeleteTaskButton';
+import ViewTaskButton from './ViewTaskButton';
 
 class Task extends Component {
   render() {
@@ -16,10 +17,10 @@ class Task extends Component {
         priorityClass = 'bg-light text-light';
         break;
       case 'LOW':
-        priorityClass = 'bg-info text-light';
+        priorityClass = 'bg-success text-light';
         break;
       case 'MEDIUM':
-        priorityClass = 'bg-secondary text-light';
+        priorityClass = 'bg-info text-light';
         break;
       case 'HIGH':
         priorityClass = 'bg-danger text-light';
@@ -39,13 +40,8 @@ class Task extends Component {
           <h6 className='card-title'>{summary}</h6>
           <p className='card-text text-truncate '>{acceptanceCriteria}</p>
           <div className='d-flex justify-content-between'>
-            <Link
-              to={`/updateTask/${projectID}/${sequence}`}
-              className='btn btn-sm btn-primary'
-            >
-              View
-            </Link>
-            <button className='btn btn-danger btn-sm ml-1'>Delete</button>
+            <ViewTaskButton projectID={projectID} sequence={sequence} />
+            <DeleteTaskButton projectID={projectID} sequence={sequence} />
           </div>
         </div>
       </div>

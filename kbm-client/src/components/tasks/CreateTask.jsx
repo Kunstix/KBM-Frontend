@@ -25,7 +25,6 @@ class CreateTask extends Component {
 
   componentDidMount() {
     if (this.props.match.params.sequence) {
-      console.log('mount');
       const { projectID, sequence } = this.props.match.params;
       this.props.getTask(projectID, sequence, this.props.history);
     }
@@ -38,11 +37,7 @@ class CreateTask extends Component {
   }
 
   componentDidUpdate(nextProps, state, snapshot) {
-    console.log('update1');
-
     if (this.props.task !== nextProps.task) {
-      console.log('update');
-
       this.setState({ ...this.props.task });
     }
   }

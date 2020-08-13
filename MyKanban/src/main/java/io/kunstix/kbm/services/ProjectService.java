@@ -1,8 +1,7 @@
 package io.kunstix.kbm.services;
 
-import io.kunstix.kbm.domain.Backlog;
 import io.kunstix.kbm.domain.Project;
-import io.kunstix.kbm.exceptions.ProjectIdException;
+import io.kunstix.kbm.exceptions.ProjectAlreadyExistsException;
 import io.kunstix.kbm.exceptions.ProjectNotFoundException;
 import io.kunstix.kbm.repositories.BacklogRepository;
 import io.kunstix.kbm.repositories.ProjectRepository;
@@ -29,7 +28,7 @@ public class ProjectService {
 
             return projectRepository.save(project);
         } catch (Exception e) {
-            throw new ProjectIdException("Project ID <" + projectID + "> has to be unique.");
+            throw new ProjectAlreadyExistsException("Project ID <" + projectID + "> has to be unique.");
         }
 
     }
@@ -39,7 +38,7 @@ public class ProjectService {
         Project loadedProject = projectRepository.findByProjectID(projectID.toUpperCase());
 
         if (loadedProject == null) {
-            throw new ProjectIdException("Project with ID <" + projectID.toUpperCase() + "> does not exist.");
+            throw new ProjectNotFoundException("Project with ID <" + projectID.toUpperCase() + "> does not exist.");
         }
 
         return loadedProject;

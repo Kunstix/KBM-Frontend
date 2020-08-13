@@ -1,10 +1,10 @@
 package io.kunstix.kbm.exceptions;
 
-public class ProjectIdExceptionResponse {
+public class ProjectAlreadyExistsResponse {
 
     private String projectID;
 
-    public ProjectIdExceptionResponse(String projectID) {
+    public ProjectAlreadyExistsResponse(String projectID) {
         this.projectID = projectID;
     }
 

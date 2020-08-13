@@ -13,7 +13,7 @@ class Backlog extends Component {
           <div className='col-sm-6 col-md-4 col-lg-2 pl-1 pr-1'>
             <div className='card text-center mb-2'>
               <div className='card-header bg-primary text-white'>
-                <h5>Todo</h5>
+                <h5 className='text-white'>Todo</h5>
               </div>
             </div>
             {groupedTasks['TODO'] &&
@@ -24,7 +24,7 @@ class Backlog extends Component {
           <div className='col-sm-6 col-md-4 col-lg-2 col-lg-2 pl-1 pr-1'>
             <div className='card text-center mb-2'>
               <div className='card-header bg-primary text-white'>
-                <h5>Design</h5>
+                <h5 className='text-white'>Design</h5>
               </div>
             </div>
             {groupedTasks['IN_DESIGN'] &&
@@ -35,7 +35,7 @@ class Backlog extends Component {
           <div className='col-sm-6 col-md-4 col-lg-2 pl-1 pr-1'>
             <div className='card text-center mb-2'>
               <div className='card-header bg-primary text-white'>
-                <h5>Progress</h5>
+                <h5 className='text-white'>Progress</h5>
               </div>
             </div>
             {groupedTasks['IN_PROGRESS'] &&
@@ -46,7 +46,7 @@ class Backlog extends Component {
           <div className='col-sm-6 col-md-4 col-lg-2 pl-1 pr-1'>
             <div className='card text-center mb-2'>
               <div className='card-header bg-primary text-white'>
-                <h5>Review</h5>
+                <h5 className='text-white'>Review</h5>
               </div>
             </div>
             {groupedTasks['IN_REVIEW'] &&
@@ -57,7 +57,7 @@ class Backlog extends Component {
           <div className='col-sm-6 col-md-4 col-lg-2 pl-1 pr-1'>
             <div className='card text-center mb-2'>
               <div className='card-header bg-primary text-white'>
-                <h5>Test</h5>
+                <h5 className='text-white'>Test</h5>
               </div>
             </div>
             {groupedTasks['IN_TEST'] &&
@@ -68,7 +68,7 @@ class Backlog extends Component {
           <div className='col-sm-6 col-md-4 col-lg-2 pl-1 pr-1'>
             <div className='card text-center mb-2'>
               <div className='card-header bg-primary text-white'>
-                <h5>Done</h5>
+                <h5 className='text-white'>Done</h5>
               </div>
             </div>
             {groupedTasks['DONE'] &&

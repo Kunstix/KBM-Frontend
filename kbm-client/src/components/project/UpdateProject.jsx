@@ -26,7 +26,6 @@ class UpdateProject extends Component {
   }
 
   componentDidMount() {
-    console.log('mount');
     const { projectID } = this.props.match.params;
     this.props.getProject(projectID, this.props.history);
   }

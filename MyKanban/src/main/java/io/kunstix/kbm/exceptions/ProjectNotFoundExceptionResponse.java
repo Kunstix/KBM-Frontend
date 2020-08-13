@@ -1,10 +1,10 @@
 package io.kunstix.kbm.exceptions;
 
-public class ProjectNotFountExceptionResponse {
+public class ProjectNotFoundExceptionResponse {
 
     private String projectNotFound;
 
-    public ProjectNotFountExceptionResponse(String projectNotFound) {
+    public ProjectNotFoundExceptionResponse(String projectNotFound) {
         this.projectNotFound = projectNotFound;
     }
 
