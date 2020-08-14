@@ -70,6 +70,7 @@ public class UserController {
         if (errorResult.isPresent()) return errorResult.get();
 
         User newUser = userService.createUser(user);
+        newUser.setPassword("");
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 }

@@ -1,5 +1,6 @@
 package io.kunstix.kbm.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.kunstix.kbm.services.TaskPriority;
 import io.kunstix.kbm.services.TaskStatus;
@@ -30,10 +31,13 @@ public class Task {
 
     private TaskPriority priority;
 
+    @JsonFormat(pattern ="yyyy-mm-dd")
     private Date dueDate;
 
+    @JsonFormat(pattern ="yyyy-mm-dd")
     private Date createdAt;
 
+    @JsonFormat(pattern ="yyyy-mm-dd")
     private Date updatedAt;
 
     @ManyToOne(fetch = FetchType.EAGER)

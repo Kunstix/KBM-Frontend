@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logout } from '../../actions/authActions';
+
+import DefaultHeader from './DefaultHeader';
+import AuthenticatedHeader from './AuthenticatedHeader';
 
 class Header extends Component {
+  renderHeader() {
+    const { validToken, user } = this.props.auth;
+    return validToken && user ? (
+      <AuthenticatedHeader
+        fullname={user.fullname}
+        logout={() => this.props.logout()}
+      />
+    ) : (
+      <DefaultHeader />
+    );
+  }
+
   render() {
     return (
       <nav className='navbar navbar-expand-sm navbar-dark bg-primary mb-4 p-1'>
         <div className='container'>
-          <a className='navbar-brand' href='Dashboard.html'>
-            Kanban Board Manager
-          </a>
+          <Link className='navbar-brand' to='/'>
+            KBM
+          </Link>
           <button
             className='navbar-toggler'
             type='button'
@@ -16,33 +35,20 @@ class Header extends Component {
           >
             <span className='navbar-toggler-icon' />
           </button>
-
-          <div className='collapse navbar-collapse' id='mobile-nav'>
-            <ul className='navbar-nav mr-auto'>
-              <li className='nav-item'>
-                <a className='nav-link' href='/dashboard'>
-                  Dashboard
-                </a>
-              </li>
-            </ul>
-
-            <ul className='navbar-nav ml-auto'>
-              <li className='nav-item'>
-                <a className='nav-link ' href='register.html'>
-                  Sign Up
-                </a>
-              </li>
-              <li className='nav-item'>
-                <a className='nav-link' href='login.html'>
-                  Login
-                </a>
-              </li>
-            </ul>
-          </div>
+          {this.renderHeader()}
         </div>
       </nav>
     );
   }
 }
 
-export default Header;
+Header.propTypes = {
+  auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { logout })(Header);
