@@ -39,7 +39,7 @@ export const login = (loginData, history) => async dispatch => {
   }
 };
 
-export const logout = history => dispatch => {
+export const logout = () => dispatch => {
   localStorage.removeItem('jwtToken');
   setJWTToken(false);
   dispatch({
