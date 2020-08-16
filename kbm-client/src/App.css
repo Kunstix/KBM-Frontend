@@ -1,15 +1,25 @@
-img {
-  width: 100%;
-}
-
-.navbar {
-  background-color: #e3f2fd;
-}
-
 #project {
   background-color: rgba(159, 195, 236, 0.2);
 }
 
+/**
+HEADINGS STYLES
+**/
+
+.banner {
+  background: linear-gradient(
+    90deg,
+    rgba(24, 188, 156, 1) 0%,
+    rgba(166, 229, 217, 1) 100%
+  );
+  padding: 7px;
+  box-shadow: 1px 2px 7px 1px rgba(0, 0, 0, 0.4);
+  color: white;
+}
+
+/**
+LADING STYLES
+**/
 .landing {
   position: relative;
   /* background: url("../img/showcase.jpg") no-repeat; */
@@ -33,13 +43,11 @@ img {
   height: 100%;
 }
 
+/**
+CARD STYLES
+**/
 .card-form {
   opacity: 0.9;
-}
-
-.latest-profiles-img {
-  width: 40px;
-  height: 40px;
 }
 
 .form-control::placeholder {

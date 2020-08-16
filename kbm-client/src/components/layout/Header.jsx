@@ -22,7 +22,10 @@ class Header extends Component {
 
   render() {
     return (
-      <nav className='navbar navbar-expand-sm navbar-dark bg-primary mb-4 p-1'>
+      <nav
+        id='header'
+        className='navbar navbar-expand-sm navbar-dark bg-primary mb-4 p-1'
+      >
         <div className='container'>
           <Link className='navbar-brand' to='/'>
             KBM
