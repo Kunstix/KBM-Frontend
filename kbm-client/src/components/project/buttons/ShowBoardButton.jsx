@@ -6,7 +6,7 @@ class ShowBoardButton extends Component {
     return (
       <Link
         className='action fa fa-flag-checkered pr-1'
-        to={`/project/${this.props.projectID}`}
+        to={`/board/${this.props.projectID}`}
       ></Link>
     );
   }

@@ -4,6 +4,7 @@ import { getTask } from '../../../actions/backlogActions';
 import { connect } from 'react-redux';
 import TaskViewHead from './TaskViewHead';
 import TaskDetailRow from './TaskDetailRow';
+import { Link } from 'react-router-dom';
 
 class TaskView extends Component {
   componentDidMount() {
@@ -27,7 +28,12 @@ class TaskView extends Component {
     return (
       <div className='row'>
         <div className='col-md-6 d-flex flex-column pl-5'>
-          <h3 className='text-primary font-weight-bold pb-3'>Task Details</h3>
+          <div className='d-flex justify-content-between align-items-center pb-3'>
+            <h3 className='text-primary font-weight-bold'>Task Details</h3>
+            <Link to={`/board/${projectID}`} className='btn btn-light'>
+              To Project Board
+            </Link>
+          </div>
           <TaskViewHead
             projectID={projectID}
             sequence={sequence}

@@ -9,6 +9,7 @@ import CreateTask from '../tasks/item/CreateTask';
 import UserManagementBoard from '../management/users/UserManagementBoard';
 import TaskOverview from '../tasks/overview/TaskOverview';
 import TaskView from '../tasks/item/TaskView';
+import ProjectStatisticsView from '../project/statistics/ProjectStatisticsView';
 
 class PrivateRoutes extends Component {
   render() {
@@ -34,7 +35,16 @@ class PrivateRoutes extends Component {
         />
         <SecureRoute exact path='/users' component={UserManagementBoard} />
         <SecureRoute exact path='/mytasks' component={TaskOverview} />
-        <SecureRoute exact path='/:projectID/:sequence' component={TaskView} />
+        <SecureRoute
+          exact
+          path='/tasks/:projectID/:sequence'
+          component={TaskView}
+        />
+        <SecureRoute
+          exact
+          path='/dashboard/:projectID'
+          component={ProjectStatisticsView}
+        />
       </Switch>
     );
   }

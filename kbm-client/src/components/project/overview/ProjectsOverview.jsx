@@ -19,7 +19,7 @@ class ProjectsOverview extends Component {
           <CreateProjectButton />
         </div>
         <hr />
-        <ul class='list-group-flush pl-0 overflow-auto h-100'>
+        <ul className='list-group-flush pl-0 overflow-auto h-100'>
           {projects.map(project => (
             <ProjectItem key={project.projectID} project={project} />
           ))}

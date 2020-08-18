@@ -1,48 +1,44 @@
 import React, { Component } from 'react';
 import DeleteTaskButton from '../buttons/DeleteTaskButton';
 import ViewTaskButton from '../buttons/ViewTaskButton';
+import PriorityButton from '../buttons/PriorityButton';
+import TypeButton from '../buttons/TypeButton';
 
 class Task extends Component {
   render() {
-    const {
-      sequence,
-      priority,
-      summary,
-      acceptanceCriteria,
-      projectID
-    } = this.props.task;
+    const { sequence, priority, summary, type, projectID } = this.props.task;
     let priorityClass;
     switch (priority) {
       case 'LOWEST':
-        priorityClass = 'bg-light text-light';
+        priorityClass = '-light';
         break;
       case 'LOW':
-        priorityClass = 'bg-success text-light';
+        priorityClass = '-success';
         break;
       case 'MEDIUM':
-        priorityClass = 'bg-info text-light';
+        priorityClass = '-info';
         break;
       case 'HIGH':
-        priorityClass = 'bg-danger text-light';
+        priorityClass = '-danger';
         break;
       case 'HIGHEST':
-        priorityClass = 'bg-danger text-light';
+        priorityClass = '-danger';
         break;
       default:
-        priorityClass = 'bg-info text-light';
+        priorityClass = '-info';
     }
     return (
-      <div className='card mb-1 bg-light'>
-        <div className={`card-header text-primary ${priorityClass} p-2`}>
-          {sequence}({priority})
+      <div className={`card mb-1 text-primary`}>
+        <div
+          className={`card-header bg-dark p-2 d-flex justify-content-between align-items-center`}
+        >
+          <TypeButton type={type} />
+          {sequence}
+          <span className={`badge badge${priorityClass}`}>{priority}</span>
         </div>
-        <div className='card-body bg-light p-2 pb-0'>
+        <div className='card-body p-2 pb-0 d-flex justify-content-between align-items-center'>
           <h6 className='card-title'>{summary}</h6>
-          <p className='card-text text-truncate '>{acceptanceCriteria}</p>
-          <div className='d-flex justify-content-between'>
-            <ViewTaskButton projectID={projectID} sequence={sequence} />
-            <DeleteTaskButton projectID={projectID} sequence={sequence} />
-          </div>
+          <ViewTaskButton projectID={projectID} sequence={sequence} />
         </div>
       </div>
     );
