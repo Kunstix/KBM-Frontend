@@ -89,7 +89,6 @@ class RoleAssignment extends Component {
   }
 
   render() {
-    const { users } = this.props;
     return (
       <div className='d-flex justify-content-center h-100'>
         <form
@@ -102,7 +101,7 @@ class RoleAssignment extends Component {
 
           <input
             type='submit'
-            className='btn btn-primary btn-block'
+            className='btn btn-info btn-block'
             value='Assign Role'
           />
         </form>

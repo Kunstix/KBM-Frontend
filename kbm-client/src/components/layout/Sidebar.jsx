@@ -13,7 +13,6 @@ class Sidebar extends Component {
           <div className='sidebar-header d-flex justify-content-between'>
             <h4>Welcome, XXX</h4>
           </div>
-
           <ul className='list-unstyled components navbar-nav border-top border-info'>
             <li className='nav-item'>
               <Link className='nav-link' to='/myprojects'>
@@ -26,18 +25,13 @@ class Sidebar extends Component {
               </Link>
             </li>
             <li className='nav-item'>
-              <Link className='nav-link' to='#'>
+              <Link className='nav-link' to='/mytasks'>
                 My Tickets
               </Link>
             </li>
             <li className='nav-item'>
-              <Link className='nav-link' to='#'>
-                Manage Projects
-              </Link>
-            </li>
-            <li className='nav-item'>
               <Link className='nav-link' to='/users'>
-                User Management
+                Manage Users
               </Link>
             </li>
           </ul>

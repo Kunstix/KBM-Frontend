@@ -13,6 +13,7 @@ export const DELETE_TASK = 'DELETE_TASK';
 
 // AUTH ACTIONS
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const LOGOUT = 'LOGOUT';
 
 // USER ACTIONS
 export const GET_USERS = 'GET_USERS';

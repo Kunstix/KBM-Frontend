@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { getTask, createTask, updateTask } from '../../actions/backlogActions';
+import {
+  getTask,
+  createTask,
+  updateTask
+} from '../../../actions/backlogActions';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 

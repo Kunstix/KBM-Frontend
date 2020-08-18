@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import DeleteTaskButton from './DeleteTaskButton';
-import ViewTaskButton from './ViewTaskButton';
+import DeleteTaskButton from '../buttons/DeleteTaskButton';
+import ViewTaskButton from '../buttons/ViewTaskButton';
 
 class Task extends Component {
   render() {

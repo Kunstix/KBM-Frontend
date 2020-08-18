@@ -39,6 +39,18 @@ export const getBacklog = projectID => async dispatch => {
   }
 };
 
+export const getBacklogByUser = () => async dispatch => {
+  try {
+    const res = await axios.get(`/api/backlog`);
+    dispatch({
+      type: GET_BACKLOG,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({ type: GET_ERRORS, payload: err.response.data });
+  }
+};
+
 export const updateTask = (task, history) => async dispatch => {
   try {
     await axios.patch(`/api/backlog/${task.projectID}/${task.sequence}`, task);
@@ -55,7 +67,7 @@ export const updateTask = (task, history) => async dispatch => {
   }
 };
 
-export const deleteTask = (projectID, sequence) => async dispatch => {
+export const deleteTask = (projectID, sequence, callback) => async dispatch => {
   const { isConfirmed } = await swal.fire({
     text: `You sure you want to delete ${projectID}?`,
     icon: 'warning',
@@ -70,5 +82,8 @@ export const deleteTask = (projectID, sequence) => async dispatch => {
       type: DELETE_TASK,
       payload: sequence
     });
+  }
+  if (callback) {
+    callback();
   }
 };

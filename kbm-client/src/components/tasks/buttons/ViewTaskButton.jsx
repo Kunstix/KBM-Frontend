@@ -5,11 +5,9 @@ class ViewTaskButton extends Component {
   render() {
     return (
       <Link
-        to={`/updateTask/${this.props.projectID}/${this.props.sequence}`}
-        className='btn btn-sm btn-primary'
-      >
-        View
-      </Link>
+        className='far fa-eye pr-1'
+        to={`/${this.props.projectID}/${this.props.sequence}`}
+      ></Link>
     );
   }
 }

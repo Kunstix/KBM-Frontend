@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getUsers, getRoles } from '../../../actions/userActions';
-import UserItem from './UserItem';
 import RoleAssignment from './RoleAssignment';
 import UserOverview from './UserOverview';
 
@@ -10,10 +9,6 @@ class UserManagementBoard extends Component {
   componentDidMount() {
     this.props.getUsers();
     this.props.getRoles();
-  }
-
-  componentDidUpdate(nextProps, state, snapshot) {
-    console.log('updated!');
   }
 
   render() {

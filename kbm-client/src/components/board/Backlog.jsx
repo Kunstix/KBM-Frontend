@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Task from '../tasks/Task';
+import Task from '../tasks/item/TaskSimpleCard';
 import _ from 'lodash';
 
 class Backlog extends Component {

@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from '../actions/types';
+import { SET_CURRENT_USER, LOGOUT } from '../actions/types';
 import _ from 'lodash';
 
 const initialState = {
@@ -22,7 +22,6 @@ export default function (state = initialState, action) {
         validToken: booleanActionPayload(action.payload),
         user: action.payload
       };
-
     default:
       return state;
   }

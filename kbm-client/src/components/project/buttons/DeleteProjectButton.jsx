@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProptTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteProject } from '../../actions/projectActions';
+import { deleteProject } from '../../../actions/projectActions';
 
 class DeleteProjectButton extends Component {
   onDelete = projectID => {
@@ -11,12 +11,9 @@ class DeleteProjectButton extends Component {
   render() {
     return (
       <div
-        className='btn btn-danger w-100'
-        onClick={() => this.onDelete(this.props.projectID)}
-      >
-        <span className='fa fa-minus-circle pr-1' />
-        <span>Delete Project</span>
-      </div>
+        className='action fas fa-trash-alt pr-1'
+        onClick={() => this.onDelete(this.props.projectID, this.props.callback)}
+      />
     );
   }
 }
