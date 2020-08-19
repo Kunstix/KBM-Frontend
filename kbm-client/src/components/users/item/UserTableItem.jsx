@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
-class UserItem extends Component {
+class UserTableItem extends Component {
   onActivate = active => {
     if (!active) {
       this.props.onActivate();
@@ -12,33 +12,35 @@ class UserItem extends Component {
 
   render() {
     const { username, fullname, active, roles } = this.props.user;
-    const { isManage } = this.props;
+    const { isManage, simple } = this.props;
     return (
       <tr>
         <td>{fullname}</td>
         <td>{username}</td>
-        <td>
-          {active ? (
-            <i className='fas fa-check'></i>
-          ) : (
-            <i className='fas fa-times'></i>
-          )}
-        </td>
+        {!simple && (
+          <td>
+            {active ? (
+              <i className='fas fa-check'></i>
+            ) : (
+              <i className='fas fa-times'></i>
+            )}
+          </td>
+        )}
         <td>{roles[0].name}</td>
         {isManage && (
           <td>
-            <a className='far fa-eye'></a>
-            <a
-              className={classNames('pl-2 ', {
+            <div className='far fa-eye table-action '></div>
+            <div
+              className={classNames('pl-2 table-action ', {
                 'fas fa-minus-circle': active,
                 'fas fa-check': !active
               })}
               onClick={() => this.onActivate(active)}
-            ></a>
-            <a
-              className='pl-2 fas fa-trash-alt'
+            ></div>
+            <div
+              className='pl-2 fas fa-trash-alt table-action '
               onClick={() => this.props.onDelete()}
-            ></a>
+            ></div>
           </td>
         )}
       </tr>
@@ -46,4 +48,4 @@ class UserItem extends Component {
   }
 }
 
-export default UserItem;
+export default UserTableItem;

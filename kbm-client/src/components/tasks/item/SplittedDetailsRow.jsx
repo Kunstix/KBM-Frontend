@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class TaskDetailRow extends Component {
+export default class SplittedDetailsRow extends Component {
   render() {
     const { leftTitle, rightTitle, leftContent, rightContent } = this.props;
     return (

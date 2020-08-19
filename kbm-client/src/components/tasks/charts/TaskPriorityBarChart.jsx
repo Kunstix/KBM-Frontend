@@ -9,6 +9,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import _ from 'lodash';
+import { getColorForPrio } from '../../../utils/task/colors';
 
 export default class TaskStatusBarChart extends Component {
   render() {
@@ -22,9 +23,8 @@ export default class TaskStatusBarChart extends Component {
         };
       })
       .value();
-    const COLORS = ['#00C49F', '#0088FE', '#FF8042'];
     return (
-      <div className='card h-100 p-2 pr-4 pt-4'>
+      <div className='h-50 p-2 pr-4 pt-4 border-bottom'>
         <ResponsiveContainer>
           <BarChart data={tasksByPrio}>
             <XAxis dataKey='name' />
@@ -32,21 +32,7 @@ export default class TaskStatusBarChart extends Component {
             <Tooltip />
             <Bar dataKey='count'>
               {tasksByPrio.map((entry, index) => {
-                let color;
-                switch (entry.name) {
-                  case 'LOW':
-                    color = COLORS[0];
-                    break;
-                  case 'MEDIUM':
-                    color = COLORS[1];
-                    break;
-                  case 'HIGH':
-                    color = COLORS[2];
-                    break;
-                  default:
-                    color = COLORS[3];
-                }
-                return <Cell fill={color} />;
+                return <Cell fill={getColorForPrio(entry.name)} />;
               })}
             </Bar>
           </BarChart>

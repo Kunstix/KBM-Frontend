@@ -5,7 +5,7 @@ class UpdateProjectButton extends Component {
   render() {
     return (
       <Link
-        className='action fa fa-edit pr-1'
+        className='icon-action fa fa-edit pr-1'
         to={`/updateProject/${this.props.projectID}`}
       ></Link>
     );

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { getTask } from '../../../actions/backlogActions';
 import { connect } from 'react-redux';
 import TaskViewHead from './TaskViewHead';
-import TaskDetailRow from './TaskDetailRow';
-import { Link } from 'react-router-dom';
+import SplittedDetailsRow from './SplittedDetailsRow';
+import ShowBoardButton from '../../board/buttons/ShowBoardButton';
 
 class TaskView extends Component {
   componentDidMount() {
@@ -30,9 +30,7 @@ class TaskView extends Component {
         <div className='col-md-6 d-flex flex-column pl-5'>
           <div className='d-flex justify-content-between align-items-center pb-3'>
             <h3 className='text-primary font-weight-bold'>Task Details</h3>
-            <Link to={`/board/${projectID}`} className='btn btn-light'>
-              To Project Board
-            </Link>
+            <ShowBoardButton projectID={projectID} />
           </div>
           <TaskViewHead
             projectID={projectID}
@@ -40,25 +38,25 @@ class TaskView extends Component {
             history={this.props.history}
           />
           <div className='card-body'>
-            <TaskDetailRow
+            <SplittedDetailsRow
               leftTitle={'Title'}
               leftContent={summary}
               rightTitle={'Description'}
               rightContent={acceptanceCriteria}
             />
-            <TaskDetailRow
+            <SplittedDetailsRow
               leftTitle={'Assigned'}
               leftContent={asignee ? asignee.fullname : ''}
               rightTitle={'Priority'}
               rightContent={priority}
             />
-            <TaskDetailRow
+            <SplittedDetailsRow
               leftTitle={'Status'}
               leftContent={status}
               rightTitle={'Type'}
               rightContent={type}
             />
-            <TaskDetailRow
+            <SplittedDetailsRow
               leftTitle={'Created at'}
               leftContent={createdAt}
               rightTitle={'Due Date'}

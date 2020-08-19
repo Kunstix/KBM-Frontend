@@ -5,7 +5,7 @@ class ShowProjectButton extends Component {
   render() {
     return (
       <Link
-        className='action far fa-eye pr-1'
+        className='icon-action far fa-eye pr-1'
         to={`/project/${this.props.projectID}`}
       ></Link>
     );

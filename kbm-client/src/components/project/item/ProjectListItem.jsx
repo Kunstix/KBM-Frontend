@@ -5,7 +5,7 @@ import ShowProjectButton from '../buttons/ShowProjectButton';
 import ShowBoardButton from '../buttons/ShowBoardButton';
 import ShowStatsButton from '../buttons/ShowStatsButton';
 
-class ProjectItem extends Component {
+class ProjectListItem extends Component {
   render() {
     const { project } = this.props;
     return (
@@ -30,4 +30,4 @@ class ProjectItem extends Component {
   }
 }
 
-export default ProjectItem;
+export default ProjectListItem;

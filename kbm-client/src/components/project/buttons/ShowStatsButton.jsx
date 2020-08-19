@@ -5,7 +5,7 @@ class ShowStatsButton extends Component {
   render() {
     return (
       <Link
-        className='action fas fa-chart-line pr-1'
+        className='icon-action fas fa-chart-line pr-1'
         to={`/dashboard/${this.props.projectID}`}
       ></Link>
     );

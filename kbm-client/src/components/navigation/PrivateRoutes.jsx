@@ -6,10 +6,12 @@ import CreateProject from '../project/item/CreateProject';
 import UpdateProject from '../project/item/UpdateProject';
 import Board from '../board/Board';
 import CreateTask from '../tasks/item/CreateTask';
-import UserManagementBoard from '../management/users/UserManagementBoard';
+import UserManagementBoard from '../users/UserManagementBoard';
 import TaskOverview from '../tasks/overview/TaskOverview';
 import TaskView from '../tasks/item/TaskView';
 import ProjectStatisticsView from '../project/statistics/ProjectStatisticsView';
+import PersonalStatisticsView from '../users/statistics/PersonalStatisticsView';
+import ProjectView from '../project/item/ProjectView';
 
 class PrivateRoutes extends Component {
   render() {
@@ -45,6 +47,12 @@ class PrivateRoutes extends Component {
           path='/dashboard/:projectID'
           component={ProjectStatisticsView}
         />
+        <SecureRoute
+          exact
+          path='/dashboard'
+          component={PersonalStatisticsView}
+        />
+        <SecureRoute exact path='/project/:projectID' component={ProjectView} />
       </Switch>
     );
   }

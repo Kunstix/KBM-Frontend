@@ -15,6 +15,11 @@ export const getUsers = () => async dispatch => {
   dispatch({ type: GET_USERS, payload: res.data });
 };
 
+export const getUsersByProject = projectID => async dispatch => {
+  const res = await axios.get(`/api/project/users/${projectID}`);
+  dispatch({ type: GET_USERS, payload: res.data });
+};
+
 export const getRoles = () => async dispatch => {
   const res = await axios.get('/api/role/all');
   dispatch({ type: GET_ROLES, payload: res.data });
@@ -64,7 +69,6 @@ export const activateUser = username => async dispatch => {
 };
 
 export const deactivateUser = username => async dispatch => {
-  console.log('Username', username);
   try {
     const { isConfirmed } = await swal.fire({
       text: `You sure you want to deactivate ${username}?`,
@@ -72,7 +76,7 @@ export const deactivateUser = username => async dispatch => {
       showCancelButton: true,
       backdrop: true,
       confirmButtonColor: '#FF7851',
-      confirmButtonText: 'Yes, deactivate it!'
+      confirmButtonText: `Yes, deactivate ${username}!`
     });
     if (isConfirmed) {
       await axios.patch(`/api/user/deactivate/${username}`);

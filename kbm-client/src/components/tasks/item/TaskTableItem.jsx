@@ -4,7 +4,7 @@ import TypeButton from '../buttons/TypeButton';
 import UpdateTaskButton from '../buttons/UpdateTaskButton';
 import ViewTaskButton from '../buttons/ViewTaskButton';
 
-class TaskItem extends Component {
+class TaskTableItem extends Component {
   render() {
     const {
       summary,
@@ -17,11 +17,12 @@ class TaskItem extends Component {
       status,
       type
     } = this.props.task;
+    const { simple = false } = this.props;
     return (
       <tr>
         <td>{sequence}</td>
         <td className='d-none d-sm-table-cell'>{summary}</td>
-        <td className='d-none d-sm-table-cell'>{projectID}</td>
+        {!simple && <td className='d-none d-sm-table-cell'>{projectID}</td>}
         <td className='d-none d-md-table-cell'>{asignee.fullname}</td>
         <td>
           <PriorityButton priority={priority} />
@@ -30,15 +31,17 @@ class TaskItem extends Component {
         <td>
           <TypeButton type={type} />
         </td>
-        <td className='d-none d-lg-table-cell'>{createdAt}</td>
-        <td className='d-none d-lg-table-cell'>{dueDate}</td>
+        {!simple && <td className='d-none d-lg-table-cell'>{createdAt}</td>}
+        {!simple && <td className='d-none d-lg-table-cell'>{dueDate}</td>}
         <td className='d-none d-sm-table-cell'>
           <ViewTaskButton projectID={projectID} sequence={sequence} />
-          <UpdateTaskButton projectID={projectID} sequence={sequence} />
+          {!simple && (
+            <UpdateTaskButton projectID={projectID} sequence={sequence} />
+          )}
         </td>
       </tr>
     );
   }
 }
 
-export default TaskItem;
+export default TaskTableItem;

@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, LOGOUT } from '../actions/types';
+import { SET_CURRENT_USER } from '../actions/types';
 import _ from 'lodash';
 
 const initialState = {

@@ -1,32 +1,12 @@
 import React, { Component } from 'react';
-import DeleteTaskButton from '../buttons/DeleteTaskButton';
 import ViewTaskButton from '../buttons/ViewTaskButton';
-import PriorityButton from '../buttons/PriorityButton';
 import TypeButton from '../buttons/TypeButton';
+import { getBootstrapColorForPrio } from '../../../utils/task/colors';
 
 class Task extends Component {
   render() {
     const { sequence, priority, summary, type, projectID } = this.props.task;
-    let priorityClass;
-    switch (priority) {
-      case 'LOWEST':
-        priorityClass = '-light';
-        break;
-      case 'LOW':
-        priorityClass = '-success';
-        break;
-      case 'MEDIUM':
-        priorityClass = '-info';
-        break;
-      case 'HIGH':
-        priorityClass = '-danger';
-        break;
-      case 'HIGHEST':
-        priorityClass = '-danger';
-        break;
-      default:
-        priorityClass = '-info';
-    }
+    const priorityClass = getBootstrapColorForPrio(priority);
     return (
       <div className={`card mb-1 text-primary`}>
         <div

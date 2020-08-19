@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ProjectItem from '../item/ProjectItem';
-import CreateProjectButton from '../buttons/CreateProjectButton';
 import { getProjects } from '../../../actions/projectActions';
+import ProjectsOverviewHead from './ProjectsOverviewHead';
+import ProjectsList from './ProjectsList';
 
 class ProjectsOverview extends Component {
   componentDidMount() {
@@ -14,16 +14,9 @@ class ProjectsOverview extends Component {
     const { projects } = this.props.project;
     return (
       <div className='pl-4 pr-4 projects container'>
-        <div className='d-flex justify-content-between align-items-center'>
-          <h3 className='text-primary font-weight-bold'>My Projects</h3>
-          <CreateProjectButton />
-        </div>
+        <ProjectsOverviewHead />
         <hr />
-        <ul className='list-group-flush pl-0 overflow-auto h-100'>
-          {projects.map(project => (
-            <ProjectItem key={project.projectID} project={project} />
-          ))}
-        </ul>
+        <ProjectsList projects={projects} />
       </div>
     );
   }

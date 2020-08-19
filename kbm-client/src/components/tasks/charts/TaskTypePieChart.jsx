@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
-import {
-  PieChart,
-  Pie,
-  Sector,
-  Cell,
-  Legend,
-  ResponsiveContainer
-} from 'recharts';
+import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import _ from 'lodash';
+import { getColorForType } from '../../../utils/task/colors';
 
 export default class TaskTypePieChart extends Component {
   render() {
     const { tasks } = this.props;
-    const COLORS = ['#0088FE', '#FF8042'];
     const taskTypesCounted = _.chain(tasks)
       .groupBy('type')
       .map(function (tasks, key) {
@@ -24,8 +17,8 @@ export default class TaskTypePieChart extends Component {
       .value();
 
     return (
-      <ResponsiveContainer>
-        <PieChart className='card'>
+      <ResponsiveContainer className='h-50'>
+        <PieChart>
           <Pie
             data={taskTypesCounted}
             labelLine={false}
@@ -34,10 +27,7 @@ export default class TaskTypePieChart extends Component {
             dataKey='value'
           >
             {taskTypesCounted.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
+              <Cell key={`cell-${index}`} fill={getColorForType(entry.name)} />
             ))}
           </Pie>
           <Legend

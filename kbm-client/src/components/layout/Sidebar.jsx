@@ -15,7 +15,7 @@ class Sidebar extends Component {
           </div>
           <ul className='list-unstyled components navbar-nav border-top border-info'>
             <li className='nav-item'>
-              <Link className='nav-link' to='/myprojects'>
+              <Link className='nav-link' to='/dashboard'>
                 Dashboard
               </Link>
             </li>

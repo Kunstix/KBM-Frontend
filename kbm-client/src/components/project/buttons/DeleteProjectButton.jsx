@@ -11,7 +11,7 @@ class DeleteProjectButton extends Component {
   render() {
     return (
       <div
-        className='action fas fa-trash-alt pr-1'
+        className='icon-action fas fa-trash-alt pr-1'
         onClick={() => this.onDelete(this.props.projectID, this.props.callback)}
       />
     );

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getUsers, getRoles } from '../../../actions/userActions';
-import RoleAssignment from './RoleAssignment';
-import UserOverview from './UserOverview';
+import { getUsers, getRoles } from '../../actions/userActions';
+import RoleAssignment from './management/RoleAssignment';
+import UserOverview from './overview/UserOverview';
 
 class UserManagementBoard extends Component {
   componentDidMount() {
@@ -37,7 +37,7 @@ UserManagementBoard.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  users: state.users
+  users: state.users.users
 });
 
 export default connect(mapStateToProps, { getUsers, getRoles })(

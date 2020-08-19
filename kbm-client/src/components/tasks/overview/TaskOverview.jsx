@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBacklogByUser, deleteTask } from '../../../actions/backlogActions';
-import TaskItem from '../item/TaskItem';
 import PropTypes from 'prop-types';
-import TaskOverviewHead from './TaskOverviewHead';
+import TaskOverviewTableHead from './TaskOverviewTableHead';
+import TaskOverviewHead from './TaskOverviewTableHead';
+import TaskOverviewTableBody from './TaskOverviewTableBody';
+import TaskOverviewTable from './TaskOverviewTable';
 
 class TaskOverview extends Component {
   componentDidMount() {
@@ -14,21 +16,11 @@ class TaskOverview extends Component {
     const { tasks } = this.props;
     return (
       <div className='row w-100 pl-5'>
-        <div className='col-md-12 table-responsive mb-3'>
+        <div className='col-md-12 mb-3'>
           <h3 className='text-primary font-weight-bold'>Tasks Overview</h3>
         </div>
         <div className='col-md-12 table-responsive'>
-          <table
-            className='table table-striped table-sm'
-            cellSpacing='0'
-            width='100%'
-          >
-            <TaskOverviewHead />
-            <tbody>
-              {tasks &&
-                tasks.map(task => <TaskItem key={task.id} task={task} />)}
-            </tbody>
-          </table>
+          <TaskOverviewTable tasks={tasks} />
         </div>
       </div>
     );

@@ -27,7 +27,6 @@ class RoleAssignment extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    console.log(this.props);
     this.props.assignRole(
       this.state.username,
       this.state.role,

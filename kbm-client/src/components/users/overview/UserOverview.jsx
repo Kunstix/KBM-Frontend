@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import UserItem from './UserItem';
+import UserItem from '../item/UserTableItem';
 import { connect } from 'react-redux';
 import {
   deleteUser,
@@ -10,8 +10,7 @@ import {
 
 class UserOverview extends Component {
   render() {
-    const { users } = this.props.users;
-    const { isManage } = this.props;
+    const { users, isManage = false, simple = false } = this.props;
     return (
       <table
         className='table table-striped table-sm'
@@ -22,7 +21,7 @@ class UserOverview extends Component {
           <tr>
             <th className='th-sm'>Name</th>
             <th className='th-sm'>Email</th>
-            <th className='th-sm'>Active</th>
+            {!simple && <th className='th-sm'>Active</th>}
             <th className='th-sm'>Role</th>
             {isManage && <th className='th-sm'>Actions</th>}
           </tr>
@@ -33,7 +32,8 @@ class UserOverview extends Component {
               <UserItem
                 key={user.id}
                 user={user}
-                isManage
+                isManage={isManage}
+                simple={simple}
                 onDelete={() => this.props.deleteUser(user.username)}
                 onActivate={() =>
                   this.props.activateUser(user.username, user.active)

@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getBacklog } from '../../../actions/backlogActions';
-
-import _ from 'lodash';
-import TaskTypePieChart from './TaskTypePieChart';
-import TaskStatusBarChart from './TaskStatusBarChart';
-import TaskPriorityBarChart from './TaskPriorityBarChart';
-import TaskProgressBar from './TaskProgressBar';
+import ProjectsViewHead from './ProjectStatisticsViewHead';
+import ProjectStatisticsQuateredView from './ProjectStatisticsQuateredView';
 
 class ProjectStatisticsView extends Component {
   componentDidMount() {
@@ -17,25 +13,12 @@ class ProjectStatisticsView extends Component {
 
   render() {
     const { tasks } = this.props.backlog;
+    const { projectID } = this.props.match.params;
     return (
       <div className='h-75 pl-4'>
-        <h3 className='text-primary font-weight-bold'>
-          Statisics of {this.props.match.params.projectID}
-        </h3>
-        <div className='h-100 p-0 d-flex justify-content-center align-items-center'>
-          <div className='row w-75 h-100 mr-0'>
-            <div className='col-md-6 d-flex flex-column'>
-              <TaskStatusBarChart tasks={tasks} />
-              <hr />
-              <TaskTypePieChart tasks={tasks} />
-            </div>
-            <div className='col-md-6 d-flex flex-column'>
-              <TaskPriorityBarChart tasks={tasks} />
-              <hr />
-              <TaskProgressBar tasks={tasks} />
-            </div>
-          </div>
-        </div>
+        <ProjectsViewHead projectID={projectID} />
+        <hr />
+        <ProjectStatisticsQuateredView tasks={tasks} />
       </div>
     );
   }

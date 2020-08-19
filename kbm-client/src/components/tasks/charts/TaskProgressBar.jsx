@@ -5,7 +5,7 @@ export default class TaskProgressBar extends Component {
     const { tasks } = this.props;
     const notDoneTasks = tasks.filter(task => task.status !== 'DONE');
     return (
-      <div className='jumbotron card bg-white text-primary mb-0'>
+      <div className='bg-white text-primary mb-0 p-5'>
         <h2>Tickets Left: {notDoneTasks.length}</h2>
         <div class='progress' style={{ height: '40px' }}>
           <div
