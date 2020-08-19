@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 import {
   getTask,
   createTask,
   updateTask
 } from '../../../actions/backlogActions';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import CreateTaskHead from './CreateTaskHead';
+import ShowBigProjectButton from '../../project/buttons/ShowBigProjectButton';
+import ShowBigBoardButton from '../../project/buttons/ShowBigBoardButton';
+import CreateTaskForm from './CreateTaskForm';
 
 class CreateTask extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class CreateTask extends Component {
       summary: '',
       projectID: projectID,
       acceptanceCriteria: '',
+      type: 'STORY',
       status: 'TODO',
       priority: 'MEDIUM',
       dueDate: '',
@@ -56,112 +58,42 @@ class CreateTask extends Component {
       projectID: this.state.projectID,
       summary: this.state.summary,
       acceptanceCriteria: this.state.acceptanceCriteria,
+      type: this.state.type,
       status: this.state.status,
       priority: this.state.priority,
       dueDate: this.state.dueDate
     };
     if (this.state.id) {
       newTask['id'] = this.state.id;
+      newTask['sequence'] = this.state.sequence;
       this.props.updateTask(newTask, this.props.history);
+    } else {
+      this.props.createTask(newTask, this.props.history);
     }
-    this.props.createTask(newTask, this.props.history);
   }
 
   render() {
     const { projectID } = this.props.match.params;
     const { errors } = this.state;
+    const { sequence } = this.props.task;
 
     return (
       <div className='add-PBI'>
         <div className='container'>
+          <div className='row d-flex justify-content-end mr-5'>
+            <ShowBigProjectButton projectID={projectID} text='To Project' />
+            <ShowBigBoardButton projectID={projectID} text='To Board' />
+          </div>
           <div className='row'>
             <div className='col-md-8 m-auto'>
-              <Link to={`/board/${projectID}`} className='btn btn-light'>
-                Back to Project Board
-              </Link>
-              <h4 className='display-5 text-center'>Edit Project Task</h4>
-              <p className='lead text-center'>Project Name + Project Code</p>
-              <form onSubmit={event => this.onSubmit(event)}>
-                <div className='form-group'>
-                  <input
-                    type='text'
-                    className={classNames('form-control form-control-md', {
-                      'is-invalid': errors.summary
-                    })}
-                    name='summary'
-                    placeholder='Task summary'
-                    value={this.state.summary || ''}
-                    onChange={event => this.onChange(event)}
-                  />
-                  {errors.summary && (
-                    <div className='invalid-feedback'>{errors.summary}</div>
-                  )}
-                </div>
-                <div className='form-group'>
-                  <textarea
-                    className={classNames('form-control form-control-md', {
-                      'is-invalid': errors.acceptanceCriteria
-                    })}
-                    placeholder='Acceptance Criteria'
-                    name='acceptanceCriteria'
-                    value={this.state.acceptanceCriteria || ''}
-                    onChange={event => this.onChange(event)}
-                  ></textarea>
-                </div>
-                {errors.acceptanceCriteria && (
-                  <div className='invalid-feedback'>
-                    {errors.acceptanceCriteria}
-                  </div>
-                )}
-                <h6>Due Date</h6>
-                <div className='form-group'>
-                  <input
-                    type='date'
-                    className='form-control form-control-md'
-                    name='dueDate'
-                    value={
-                      moment.utc(this.state.dueDate).format('YYYY-MM-DD') || ''
-                    }
-                    onChange={event => this.onChange(event)}
-                  />
-                </div>
-                <div className='form-group'>
-                  <select
-                    className='form-control form-control-md'
-                    name='priority'
-                    value={this.state.priority}
-                    onChange={event => this.onChange(event)}
-                  >
-                    <option value={''}>Select Priority</option>
-                    <option value={'HIGH'}>High</option>
-                    <option value={'MEDIUM'}>Medium</option>
-                    <option value={'LOW'}>Low</option>
-                  </select>
-                </div>
-
-                <div className='form-group'>
-                  <select
-                    className='form-control form-control-md'
-                    name='status'
-                    value={this.state.status}
-                    onChange={event => this.onChange(event)}
-                  >
-                    <option value=''>Select Status</option>
-                    <option value='TODO'>TODO</option>
-                    <option value='IN_DESIGN'>IN DESIGN</option>
-                    <option value='IN_PROGRESS'>IN PROGRESS</option>
-                    <option value='IN_REVIEW'>IN REVIEW</option>
-                    <option value='IN_TEST'>TEST</option>
-                    <option value='DONE'>DONE</option>
-                  </select>
-                </div>
-
-                <input
-                  type='submit'
-                  className='btn btn-primary btn-block mt-4'
-                />
-              </form>
-              <br></br>
+              <CreateTaskHead projectID={projectID} sequence={sequence} />
+              <CreateTaskForm
+                onSubmit={event => this.onSubmit(event)}
+                onChange={event => this.onChange(event)}
+                errors={errors}
+                state={this.state}
+              />
+              <br />
             </div>
           </div>
         </div>

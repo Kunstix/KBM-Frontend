@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Backlog from './Backlog';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getBacklog } from '../../actions/backlogActions';
+import BoardHead from './BoardHead';
 
 class Board extends Component {
   constructor() {
@@ -52,11 +52,7 @@ class Board extends Component {
 
     return (
       <div className='container-fluid'>
-        <Link to={`/createTask/${projectID}`} className='btn btn-primary mb-3'>
-          <span className='fas fa-plus-circle' />
-          <span> Create Task</span>
-        </Link>
-        <br />
+        <BoardHead projectID={projectID} />
         <hr />
         {this.renderBacklog()}
       </div>

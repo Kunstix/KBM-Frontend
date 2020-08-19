@@ -22,7 +22,7 @@ export default class TaskTypePieChart extends Component {
           <Pie
             data={taskTypesCounted}
             labelLine={false}
-            outerRadius={80}
+            outerRadius={60}
             label
             dataKey='value'
           >

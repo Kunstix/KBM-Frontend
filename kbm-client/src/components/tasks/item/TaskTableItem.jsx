@@ -23,7 +23,9 @@ class TaskTableItem extends Component {
         <td>{sequence}</td>
         <td className='d-none d-sm-table-cell'>{summary}</td>
         {!simple && <td className='d-none d-sm-table-cell'>{projectID}</td>}
-        <td className='d-none d-md-table-cell'>{asignee.fullname}</td>
+        <td className='d-none d-md-table-cell'>
+          {asignee && asignee.fullname}
+        </td>
         <td>
           <PriorityButton priority={priority} />
         </td>

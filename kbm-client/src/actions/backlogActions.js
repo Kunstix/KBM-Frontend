@@ -11,7 +11,7 @@ import {
 export const createTask = (task, history) => async dispatch => {
   try {
     await axios.post(`/api/backlog/${task.projectID}`, task);
-    history.push(`/board/${task.projectID}`);
+    history.push(`/tasks/${task.projectID}/${task.sequence}`);
     dispatch({ type: GET_ERRORS, payload: {} });
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
@@ -54,7 +54,7 @@ export const getBacklogByUser = () => async dispatch => {
 export const updateTask = (task, history) => async dispatch => {
   try {
     await axios.patch(`/api/backlog/${task.projectID}/${task.sequence}`, task);
-    history.push(`/projectBoard/${task.projectID}`);
+    history.push(`/tasks/${task.projectID}/${task.sequence}`);
     dispatch({
       type: GET_ERRORS,
       payload: {}

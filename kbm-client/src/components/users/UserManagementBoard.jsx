@@ -23,7 +23,7 @@ class UserManagementBoard extends Component {
             <small>All users in your Database.</small>
           </div>
           <div className='h-100 overflow-auto pt-4'>
-            <UserOverview users={this.props.users} isManage={true} />
+            <UserOverview users={this.props.users.users} isManage={true} />
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@ UserManagementBoard.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  users: state.users.users
+  users: state.users
 });
 
 export default connect(mapStateToProps, { getUsers, getRoles })(

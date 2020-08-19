@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class ShowBoardButton extends Component {
+class ShowBigBoardButton extends Component {
   render() {
-    const { text } = this.props;
-
     return (
       <Link
-        className='icon-action fa fa-flag-checkered pr-1'
+        className='btn btn-light pr-1 mr-1'
         to={`/board/${this.props.projectID}`}
       >
-        {text && text}
+        <i className='fa fa-flag-checkered pr-1' /> To Board
       </Link>
     );
   }
 }
 
-export default ShowBoardButton;
+export default ShowBigBoardButton;

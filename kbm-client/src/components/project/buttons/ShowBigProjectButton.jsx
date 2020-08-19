@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class ShowProjectButton extends Component {
+class ShowBigProjectButton extends Component {
   render() {
-    const { text } = this.props;
     return (
       <Link
-        className='icon-action far fa-eye pr-1'
+        className='btn btn-light pr-1 mr-3'
         to={`/project/${this.props.projectID}`}
       >
-        {text && text}
+        <i className='fa far fa-eye pr-1' />
+        To Project
       </Link>
     );
   }
 }
 
-export default ShowProjectButton;
+export default ShowBigProjectButton;

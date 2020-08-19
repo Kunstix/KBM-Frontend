@@ -12,6 +12,7 @@ class UpdateProject extends Component {
       id: '',
       projectName: '',
       projectID: '',
+      projectLeader: '',
       description: '',
       startDate: '',
       endDate: '',
@@ -46,6 +47,7 @@ class UpdateProject extends Component {
       id: this.state.id,
       projectID: this.state.projectID,
       projectName: this.state.projectName,
+      projectLeader: this.state.projectLeader,
       description: this.state.description,
       startDate: this.state.startDate,
       endDate: this.state.endDate
@@ -86,6 +88,15 @@ class UpdateProject extends Component {
                     name='projectID'
                     value={this.state.projectID}
                     disabled
+                  />
+                </div>
+                <div className='form-group'>
+                  <input
+                    type='text'
+                    className='form-control form-control-md'
+                    placeholder='Project Leader'
+                    name='projectLeader'
+                    value={this.state.projectLeader}
                   />
                 </div>
                 <div className='form-group'>

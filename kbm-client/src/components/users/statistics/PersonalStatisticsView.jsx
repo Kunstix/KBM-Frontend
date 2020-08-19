@@ -12,10 +12,11 @@ class PersonalStatisticsView extends Component {
 
   render() {
     const { tasks } = this.props.backlog;
+    const { username } = this.props;
     const { projectID } = this.props.match.params;
     return (
       <div className='h-75 pl-4'>
-        <PersonalStatisticsViewHead projectID={projectID} />
+        <PersonalStatisticsViewHead projectID={projectID} username={username} />
         <hr />
         <PersonalStatisticsQuateredView tasks={tasks} />
       </div>
@@ -24,12 +25,13 @@ class PersonalStatisticsView extends Component {
 }
 
 PersonalStatisticsView.propTypes = {
-  getBacklog: PropTypes.func.isRequired,
+  getBacklogByUser: PropTypes.func.isRequired,
   backlog: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  backlog: state.backlog
+  backlog: state.backlog,
+  username: state.auth.user.fullname
 });
 
 export default connect(mapStateToProps, { getBacklogByUser })(

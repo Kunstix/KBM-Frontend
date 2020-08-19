@@ -32,7 +32,9 @@ export default class TaskStatusBarChart extends Component {
             <Tooltip />
             <Bar dataKey='count'>
               {tasksByStatus.map((entry, index) => {
-                return <Cell fill={getColorForStatus(entry.name)} />;
+                return (
+                  <Cell key={index} fill={getColorForStatus(entry.name)} />
+                );
               })}
             </Bar>
           </BarChart>

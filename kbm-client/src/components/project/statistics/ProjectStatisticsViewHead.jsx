@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ShowBoardButton from '../../board/buttons/ShowBoardButton';
+import ShowBigBoardButton from '../buttons/ShowBigBoardButton';
+import ShowBigProjectButton from '../buttons/ShowBigProjectButton';
 
 export default class ProjectsViewHead extends Component {
   render() {
@@ -9,7 +10,10 @@ export default class ProjectsViewHead extends Component {
         <h3 className='text-primary font-weight-bold'>
           Statisics of {projectID}
         </h3>
-        <ShowBoardButton projectID={projectID} />
+        <div>
+          <ShowBigProjectButton projectID={projectID} />
+          <ShowBigBoardButton projectID={projectID} />
+        </div>
       </div>
     );
   }

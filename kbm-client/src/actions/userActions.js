@@ -84,7 +84,7 @@ export const deactivateUser = username => async dispatch => {
       dispatch({ type: GET_ERRORS, payload: {} });
     }
   } catch (err) {
-    console.log('ERROR', err);
+    console.log(err);
     dispatch({ type: GET_ERRORS, payload: err.response.data });
   }
 };

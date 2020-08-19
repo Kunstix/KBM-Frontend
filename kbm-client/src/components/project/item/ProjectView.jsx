@@ -6,11 +6,7 @@ import { getProject } from '../../../actions/projectActions';
 import PropTypes from 'prop-types';
 import TaskOverviewTable from '../../tasks/overview/TaskOverviewTable';
 import UserOverview from '../../users/overview/UserOverview';
-import ShowBoardButton from '../buttons/ShowBoardButton';
-import ShowStatsButton from '../buttons/ShowStatsButton';
-import DeleteProjectButton from '../buttons/DeleteProjectButton';
-import UpdateProjectButton from '../buttons/UpdateProjectButton';
-import TricedDetailsRow from './TricedDetailsRow';
+import ProjectViewHead from './ProjectViewHead';
 
 class ProjectView extends Component {
   componentDidMount() {
@@ -21,41 +17,10 @@ class ProjectView extends Component {
 
   render() {
     const { tasks, users } = this.props;
-    const {
-      projectID,
-      projectName,
-      description,
-      startDate,
-      endDate
-    } = this.props.project;
-    console.log(this.props);
     return (
       <div className='container h-75 pl-4 pr-4'>
         <div className='row h-50'>
-          <div className='col-md-12 mb-3 h-100'>
-            <h3 className='text-primary font-weight-bold mb-3'>
-              Project #{this.props.match.params.projectID}
-            </h3>
-            <div className='banner d-flex justify-content-between align-items-center'>
-              <h5 className='mb-0'>Details </h5>
-              <ShowBoardButton projectID={projectID} />
-              <ShowStatsButton projectID={projectID} />
-              <UpdateProjectButton projectID={projectID} />
-              <DeleteProjectButton projectID={projectID} />
-            </div>
-            <div className='col-md-12 mt-4'>
-              <TricedDetailsRow
-                firstTitle={'Title'}
-                firstContent={projectName}
-                secondTitle={'Description'}
-                secondContent={description}
-                thirdTitle={'Date'}
-                thirdContent={`${startDate ? startDate : 'n/a'} - ${
-                  endDate ? endDate : 'n/a'
-                }`}
-              />
-            </div>
-          </div>
+          <ProjectViewHead project={this.props.project} />
         </div>
 
         <div className='row h-50'>

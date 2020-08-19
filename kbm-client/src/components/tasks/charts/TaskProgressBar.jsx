@@ -7,9 +7,9 @@ export default class TaskProgressBar extends Component {
     return (
       <div className='bg-white text-primary mb-0 p-5'>
         <h2>Tickets Left: {notDoneTasks.length}</h2>
-        <div class='progress' style={{ height: '40px' }}>
+        <div className='progress' style={{ height: '40px' }}>
           <div
-            class='progress-bar progress-bar-striped progress-bar-animated bg-success'
+            className='progress-bar progress-bar-striped progress-bar-animated bg-success'
             role='progressbar'
             style={{
               width: `${

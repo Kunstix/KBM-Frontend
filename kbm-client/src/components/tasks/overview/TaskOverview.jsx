@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBacklogByUser, deleteTask } from '../../../actions/backlogActions';
 import PropTypes from 'prop-types';
-import TaskOverviewTableHead from './TaskOverviewTableHead';
-import TaskOverviewHead from './TaskOverviewTableHead';
-import TaskOverviewTableBody from './TaskOverviewTableBody';
 import TaskOverviewTable from './TaskOverviewTable';
 
 class TaskOverview extends Component {

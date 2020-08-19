@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './menu.css';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Sidebar extends Component {
   render() {
@@ -10,8 +11,9 @@ class Sidebar extends Component {
     } else {
       return (
         <nav id='sidebar' className='navbar-dark bg-primary vh-100 text-white'>
-          <div className='sidebar-header d-flex justify-content-between'>
-            <h4>Welcome, XXX</h4>
+          <div className='sidebar-header'>
+            <h4>Welcome, </h4>
+            <h4>{`${this.props.username}`}</h4>
           </div>
           <ul className='list-unstyled components navbar-nav border-top border-info'>
             <li className='nav-item'>
@@ -41,4 +43,8 @@ class Sidebar extends Component {
   }
 }
 
-export default withRouter(Sidebar);
+const mapStateToProps = state => ({
+  username: state.auth.user.fullname
+});
+
+export default withRouter(connect(mapStateToProps, {})(Sidebar));
