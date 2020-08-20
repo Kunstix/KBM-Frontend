@@ -1,19 +1,4 @@
 /**
-HEADINGS STYLES
-**/
-
-.banner {
-  background: linear-gradient(
-    90deg,
-    rgba(24, 188, 156, 1) 0%,
-    rgba(166, 229, 217, 1) 100%
-  );
-  padding: 7px;
-  box-shadow: 1px 2px 7px 1px rgba(0, 0, 0, 0.4);
-  color: white;
-}
-
-/**
 LADING STYLES
 **/
 .landing {

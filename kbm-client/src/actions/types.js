@@ -10,6 +10,7 @@ export const DELETE_PROJECT = 'DELETE_PROJECT';
 export const GET_BACKLOG = 'GET_BACKLOG';
 export const GET_TASK = 'GET_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
+export const ASSIGN_USER = 'ASSIGN_USER';
 
 // AUTH ACTIONS
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';

@@ -15,7 +15,7 @@ export default class TaskViewHeader extends Component {
             projectID={projectID}
             sequence={sequence}
           />
-          <AssignTaskButton />
+          <AssignTaskButton projectID={projectID} sequence={sequence} />
           <DeleteTaskButton
             projectID={projectID}
             sequence={sequence}

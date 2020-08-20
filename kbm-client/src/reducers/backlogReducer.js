@@ -1,4 +1,9 @@
-import { GET_BACKLOG, GET_TASK, DELETE_TASK } from '../actions/types';
+import {
+  GET_BACKLOG,
+  GET_TASK,
+  DELETE_TASK,
+  ASSIGN_USER
+} from '../actions/types';
 
 const initialState = {
   tasks: [],
@@ -21,6 +26,19 @@ export default function (state = initialState, action) {
       return {
         ...state,
         tasks: state.tasks.filter(task => task.sequence !== action.payload)
+      };
+    case ASSIGN_USER:
+      return {
+        ...state,
+        tasks: state.tasks.map(task => {
+          if (task.sequence === action.payload.sequence) {
+            task.asignee = action.payload.assignee;
+          }
+          return task;
+        }),
+        task: Object.assign({}, state.task, {
+          asignee: action.payload.assignee
+        })
       };
     default:
       return state;
