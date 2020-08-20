@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import swal from 'sweetalert2';
-import UserSuggestionInput from '../popup/UserSuggestionInput';
-import UserSuggestionPopup from './UserSuggestionPopup';
+import UserSuggestionPopup from '../popup//UserSuggestionPopup';
 
 class AssignTaskButton extends Component {
   constructor() {
