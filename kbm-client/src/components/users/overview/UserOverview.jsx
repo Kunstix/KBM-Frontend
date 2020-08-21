@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import UserItem from '../item/UserTableItem';
 import { connect } from 'react-redux';
 import {
   deleteUser,
   activateUser,
   deactivateUser
 } from '../../../actions/userActions';
+import UserOverviewTableHead from './UserOverviewTableHead';
+import UserOverviewTableBody from './UserOverviewTableBody';
 
 class UserOverview extends Component {
   render() {
@@ -17,31 +18,12 @@ class UserOverview extends Component {
         cellSpacing='0'
         width='100%'
       >
-        <thead>
-          <tr>
-            <th className='th-sm'>Name</th>
-            <th className='th-sm'>Email</th>
-            {!simple && <th className='th-sm'>Active</th>}
-            <th className='th-sm'>Role</th>
-            {isManage && <th className='th-sm'>Actions</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {users &&
-            users.map(user => (
-              <UserItem
-                key={user.id}
-                user={user}
-                isManage={isManage}
-                simple={simple}
-                onDelete={() => this.props.deleteUser(user.username)}
-                onActivate={() =>
-                  this.props.activateUser(user.username, user.active)
-                }
-                onDeactivate={() => this.props.deactivateUser(user.username)}
-              />
-            ))}
-        </tbody>
+        <UserOverviewTableHead isManage={isManage} simple={simple} />
+        <UserOverviewTableBody
+          users={users}
+          isManage={isManage}
+          simple={simple}
+        />
       </table>
     );
   }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import TaskViewHead from './TaskViewHead';
 import SplittedDetailsRow from './SplittedDetailsRow';
 import ShowBoardButton from '../../board/buttons/ShowBoardButton';
+import PriorityBadge from '../buttons/PriorityBadge';
 
 class TaskView extends Component {
   componentDidMount() {
@@ -48,7 +49,7 @@ class TaskView extends Component {
               leftTitle={'Assigned'}
               leftContent={asignee ? asignee.fullname : ''}
               rightTitle={'Priority'}
-              rightContent={priority}
+              rightContent={<PriorityBadge priority={priority} />}
             />
             <SplittedDetailsRow
               leftTitle={'Status'}
