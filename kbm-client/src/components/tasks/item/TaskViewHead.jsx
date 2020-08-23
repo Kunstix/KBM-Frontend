@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UpdateTaskButton from '../buttons/UpdateTaskButton';
-import AssignTaskButton from '../buttons/AssignTaskButton';
 import DeleteTaskButton from '../buttons/DeleteTaskButton';
+import AssignUserButton from '../buttons/AssignUserButton';
 
 export default class TaskViewHeader extends Component {
   render() {
@@ -15,7 +15,7 @@ export default class TaskViewHeader extends Component {
             projectID={projectID}
             sequence={sequence}
           />
-          <AssignTaskButton projectID={projectID} sequence={sequence} />
+          <AssignUserButton projectID={projectID} sequence={sequence} />
           <DeleteTaskButton
             projectID={projectID}
             sequence={sequence}

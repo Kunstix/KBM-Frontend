@@ -10,6 +10,7 @@ import CreateTaskHead from './CreateTaskHead';
 import ShowBigProjectButton from '../../project/buttons/ShowBigProjectButton';
 import ShowBigBoardButton from '../../project/buttons/ShowBigBoardButton';
 import CreateTaskForm from './CreateTaskForm';
+import ShowBigViewTaskButton from '../buttons/ShowBigProjectViewTaskButton';
 
 class CreateTask extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class CreateTask extends Component {
     if (nextProps.errors) {
       return { errors: nextProps.errors };
     }
+    return null;
   }
 
   componentDidUpdate(nextProps, state, snapshot) {
@@ -81,7 +83,13 @@ class CreateTask extends Component {
       <div className='add-PBI'>
         <div className='container'>
           <div className='row d-flex justify-content-end mr-5'>
-            <ShowBigProjectButton projectID={projectID} text='To Project' />
+            {sequence && (
+              <ShowBigViewTaskButton
+                projectID={projectID}
+                sequence={sequence}
+              />
+            )}
+            <ShowBigProjectButton projectID={projectID} text='To Board' />
             <ShowBigBoardButton projectID={projectID} text='To Board' />
           </div>
           <div className='row'>
@@ -105,13 +113,12 @@ class CreateTask extends Component {
 CreateTask.propTypes = {
   getTask: PropTypes.func.isRequired,
   createTask: PropTypes.func.isRequired,
-  updateTask: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  updateTask: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   task: state.backlog.task,
-  errors: state.errors
+  errors: state.errors.errors
 });
 
 export default connect(mapStateToProps, { getTask, updateTask, createTask })(

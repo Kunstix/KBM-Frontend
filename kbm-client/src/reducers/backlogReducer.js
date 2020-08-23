@@ -2,7 +2,8 @@ import {
   GET_BACKLOG,
   GET_TASK,
   DELETE_TASK,
-  ASSIGN_USER
+  ASSIGN_USER_TO_TASK,
+  CREATE_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -27,7 +28,7 @@ export default function (state = initialState, action) {
         ...state,
         tasks: state.tasks.filter(task => task.sequence !== action.payload)
       };
-    case ASSIGN_USER:
+    case ASSIGN_USER_TO_TASK:
       return {
         ...state,
         tasks: state.tasks.map(task => {
@@ -36,9 +37,24 @@ export default function (state = initialState, action) {
           }
           return task;
         }),
-        task: Object.assign({}, state.task, {
-          asignee: action.payload.assignee
-        })
+        task: action.payload.task
+      };
+    case CREATE_COMMENT:
+      return {
+        ...state,
+        tasks: state.tasks.map(task => {
+          if (task.sequence === action.payload.sequence) {
+            task.asignee = action.payload.assignee;
+          }
+          return task;
+        }),
+        task: Object.assign(
+          {},
+          {
+            ...state.task,
+            comments: [...state.task.comments, action.payload]
+          }
+        )
       };
     default:
       return state;

@@ -11,6 +11,7 @@ export default class UserOverviewTableHead extends Component {
           {!simple && <th className='th-sm'>Active</th>}
           <th className='th-sm'>Role</th>
           {isManage && <th className='th-sm'>Actions</th>}
+          {!isManage && <th className='th-sm'></th>}
         </tr>
       </thead>
     );

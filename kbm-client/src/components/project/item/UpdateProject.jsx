@@ -167,7 +167,7 @@ UpdateProject.propTypes = {
 
 const mapStateToProps = state => ({
   project: state.project.project,
-  errors: state.errors
+  errors: state.errors.errors
 });
 
 export default connect(mapStateToProps, { getProject, createProject })(

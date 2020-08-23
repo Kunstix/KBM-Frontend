@@ -1,4 +1,36 @@
 /* ---------------------------------------------------
+    TABS LAYOUT
+----------------------------------------------------- */
+
+.tab-list {
+  border-bottom: 1px solid #2c3e50;
+  padding-left: 0;
+}
+
+.tab-list-item {
+  display: inline-block;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+}
+
+.tab-list-item:hover {
+  cursor: pointer;
+  background-color: #18bc9c;
+  color: white;
+}
+
+.tab-list-active {
+  border: solid #2c3e50;
+  border-width: 1px 1px 0 1px;
+  background-color: #ccc;
+}
+
+.list-group-striped li:nth-of-type(odd) {
+  background: #ecf0f1;
+}
+
+/* ---------------------------------------------------
     AUTOCOMPLETE POPUP
 ----------------------------------------------------- */
 .popup {
@@ -119,6 +151,7 @@
   transform: scale(1.4);
   text-decoration: none;
   color: #2c3e50;
+  cursor: pointer;
 }
 
 /* ---------------------------------------------------
@@ -152,6 +185,7 @@
   transform: scale(1.7);
   text-decoration: none;
   color: white;
+  cursor: pointer;
 }
 
 /* ---------------------------------------------------
@@ -170,6 +204,7 @@ td a:hover,
   transform: scale(1.4);
   text-decoration: none;
   color: #18bc9c;
+  cursor: pointer;
 }
 
 /* ---------------------------------------------------
@@ -181,6 +216,7 @@ select option:hover {
   box-shadow: 0 0 10px 100px #18bc9c inset;
   background-color: #18bc9c;
   color: white;
+  cursor: pointer;
 }
 
 /* ---------------------------------------------------

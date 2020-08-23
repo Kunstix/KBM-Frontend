@@ -6,6 +6,7 @@ import TaskViewHead from './TaskViewHead';
 import SplittedDetailsRow from './SplittedDetailsRow';
 import ShowBoardButton from '../../board/buttons/ShowBoardButton';
 import PriorityBadge from '../buttons/PriorityBadge';
+import TaskTabs from '../tabs/TaskTabs';
 
 class TaskView extends Component {
   componentDidMount() {
@@ -24,11 +25,13 @@ class TaskView extends Component {
       sequence,
       status,
       type,
+      histories,
+      comments,
       acceptanceCriteria
     } = this.props.task;
     return (
-      <div className='row'>
-        <div className='col-md-6 d-flex flex-column pl-5'>
+      <div className='row h-75 w-100'>
+        <div className='col-md-6 d-flex flex-column pl-5 h-100'>
           <div className='d-flex justify-content-between align-items-center pb-3'>
             <h3 className='text-primary font-weight-bold'>Task Details</h3>
             <ShowBoardButton projectID={projectID} />
@@ -65,7 +68,13 @@ class TaskView extends Component {
             />
           </div>
         </div>
-        <div className='col-md-6'>Comments, Attachments, History</div>
+        <div className='col-md-6 h-100 p-0'>
+          <TaskTabs
+            histories={histories}
+            comments={comments}
+            sequence={sequence}
+          />
+        </div>
       </div>
     );
   }

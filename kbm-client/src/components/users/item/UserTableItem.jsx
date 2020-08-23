@@ -12,7 +12,7 @@ class UserTableItem extends Component {
 
   render() {
     const { username, fullname, active, roles } = this.props.user;
-    const { isManage, simple } = this.props;
+    const { isManage, simple, onDelete, onRemove } = this.props;
     return (
       <tr>
         <td>{fullname}</td>
@@ -26,7 +26,7 @@ class UserTableItem extends Component {
             )}
           </td>
         )}
-        <td>{roles[0].name}</td>
+        <td>{roles[0].name.replace('ROLE_', '')}</td>
         {isManage && (
           <td>
             <div className='far fa-eye table-action '></div>
@@ -36,11 +36,19 @@ class UserTableItem extends Component {
                 'fas fa-check': !active
               })}
               onClick={() => this.onActivate(active)}
-            ></div>
+            />
             <div
               className='pl-2 fas fa-trash-alt table-action '
-              onClick={() => this.props.onDelete()}
-            ></div>
+              onClick={() => onDelete()}
+            />
+          </td>
+        )}
+        {!isManage && (
+          <td>
+            <div
+              className='pl-2 fas fa-minus-circle table-action '
+              onClick={() => onRemove()}
+            />
           </td>
         )}
       </tr>

@@ -5,7 +5,7 @@ import {
   GET_BACKLOG,
   GET_TASK,
   DELETE_TASK,
-  ASSIGN_USER,
+  ASSIGN_USER_TO_TASK,
   GET_ERRORS
 } from '../actions/types';
 
@@ -22,6 +22,7 @@ export const createTask = (task, history) => async dispatch => {
 export const getTask = (projectID, sequence, history) => async dispatch => {
   try {
     const res = await axios.get(`/api/backlog/${projectID}/${sequence}`);
+    console.log(res.data);
     dispatch({ type: GET_TASK, payload: res.data });
   } catch (err) {
     history.push('/dashboard');
@@ -89,19 +90,22 @@ export const deleteTask = (projectID, sequence, callback) => async dispatch => {
   }
 };
 
-export const assignUser = (
+export const assignUserToTask = (
   projectID,
   sequence,
   assignee,
   callback
 ) => async dispatch => {
   try {
-    console.log(assignee);
-    await axios.patch(
+    const res = await axios.patch(
       `/api/backlog/${projectID}/${sequence}/${assignee.username}`
     );
     dispatch({ type: GET_ERRORS, payload: {} });
-    dispatch({ type: ASSIGN_USER, payload: { assignee, sequence } });
+    console.log(res);
+    dispatch({
+      type: ASSIGN_USER_TO_TASK,
+      payload: { assignee, sequence, task: res.data }
+    });
     if (callback) {
       callback();
     }

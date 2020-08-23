@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBacklog } from '../../../actions/backlogActions';
-import { getUsersByProject } from '../../../actions/userActions';
+import { getUsersByProject } from '../../../actions/projectActions';
 import { getProject } from '../../../actions/projectActions';
 import PropTypes from 'prop-types';
 import TaskOverviewTable from '../../tasks/overview/TaskOverviewTable';
 import UserOverview from '../../users/overview/UserOverview';
 import ProjectViewHead from './ProjectViewHead';
+import AssignUserButton from '../../tasks/buttons/AssignUserButton';
 
 class ProjectView extends Component {
   componentDidMount() {
-    this.props.getBacklog(this.props.match.params.projectID);
-    this.props.getUsersByProject(this.props.match.params.projectID);
-    this.props.getProject(this.props.match.params.projectID);
+    const { projectID } = this.props.match.params;
+    this.props.getBacklog(projectID);
+    this.props.getUsersByProject(projectID);
+    this.props.getProject(projectID);
   }
 
   render() {
@@ -22,7 +24,6 @@ class ProjectView extends Component {
         <div className='row h-50'>
           <ProjectViewHead project={this.props.project} />
         </div>
-
         <div className='row h-50'>
           <div className='col-md-8 h-100'>
             <h6 className='banner'>Tickets for this project </h6>
@@ -31,9 +32,16 @@ class ProjectView extends Component {
             </div>
           </div>
           <div className='col-md-4 h-100'>
-            <h6 className='banner'>Assigned Personell </h6>
+            <div className='banner d-flex justify-content-between'>
+              <h6>Assigned Personell </h6>
+              <AssignUserButton projectID={this.props.project.projectID} />
+            </div>
             <div className='h-100 overflow-auto pt-4'>
-              <UserOverview users={users} simple />
+              <UserOverview
+                users={users}
+                projectID={this.props.project.projectID}
+                simple
+              />
             </div>
           </div>
         </div>
@@ -53,7 +61,7 @@ ProjectView.propTypes = {
 
 const mapStateToProps = state => ({
   tasks: state.backlog.tasks,
-  users: state.users.users,
+  users: state.project.users,
   project: state.project.project
 });
 

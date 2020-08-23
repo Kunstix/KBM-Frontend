@@ -15,11 +15,6 @@ export const getUsers = () => async dispatch => {
   dispatch({ type: GET_USERS, payload: res.data });
 };
 
-export const getUsersByProject = projectID => async dispatch => {
-  const res = await axios.get(`/api/project/users/${projectID}`);
-  dispatch({ type: GET_USERS, payload: res.data });
-};
-
 export const getRoles = () => async dispatch => {
   const res = await axios.get('/api/role/all');
   dispatch({ type: GET_ROLES, payload: res.data });

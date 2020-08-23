@@ -3,7 +3,15 @@ import UserTableItem from '../../users/item/UserTableItem';
 
 export default class UserOverviewTableBody extends Component {
   render() {
-    const { users, isManage, simple } = this.props;
+    const {
+      users,
+      isManage,
+      simple,
+      onDelete,
+      onActivate,
+      onDeactivate,
+      onRemove
+    } = this.props;
     return (
       <tbody>
         {users &&
@@ -13,11 +21,10 @@ export default class UserOverviewTableBody extends Component {
               user={user}
               isManage={isManage}
               simple={simple}
-              onDelete={() => this.props.deleteUser(user.username)}
-              onActivate={() =>
-                this.props.activateUser(user.username, user.active)
-              }
-              onDeactivate={() => this.props.deactivateUser(user.username)}
+              onDelete={() => onDelete(user.username)}
+              onActivate={() => onActivate(user.username, user.active)}
+              onDeactivate={() => onDeactivate(user.username)}
+              onRemove={() => onRemove(user)}
             />
           ))}
       </tbody>

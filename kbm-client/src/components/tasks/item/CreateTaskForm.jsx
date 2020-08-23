@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import moment from 'moment';
 
 export default class CreateTaskForm extends Component {
   render() {
@@ -13,6 +12,7 @@ export default class CreateTaskForm extends Component {
       dueDate,
       summary
     } = this.props.state;
+    console.log(dueDate);
     return (
       <form onSubmit={event => onSubmit(event)}>
         <div className='form-group'>
@@ -50,7 +50,7 @@ export default class CreateTaskForm extends Component {
             type='date'
             className='form-control form-control-md'
             name='dueDate'
-            value={moment.utc(dueDate).format('YYYY-MM-DD') || ''}
+            value={dueDate || ''}
             onChange={event => onChange(event)}
           />
         </div>
