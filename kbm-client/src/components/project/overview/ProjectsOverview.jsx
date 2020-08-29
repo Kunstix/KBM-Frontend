@@ -13,7 +13,7 @@ class ProjectsOverview extends Component {
   render() {
     const { projects } = this.props.project;
     return (
-      <div className='pl-4 pr-4 projects container'>
+      <div className='pl-5 pr-5 projects'>
         <ProjectsOverviewHead />
         <hr />
         <ProjectsList projects={projects} />

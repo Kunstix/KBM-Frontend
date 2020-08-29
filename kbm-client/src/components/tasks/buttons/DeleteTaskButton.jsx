@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProptTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteTask } from '../../../actions/backlogActions';
+import { dontShowForWatcher } from '../../../utils/auth/role';
 
 class DeleteTaskButton extends Component {
   onDelete = (projectID, sequence, callback) => {
@@ -9,7 +10,8 @@ class DeleteTaskButton extends Component {
   };
 
   render() {
-    return (
+    const showButton = dontShowForWatcher(this.props.roles);
+    return showButton ? (
       <div
         className='icon-action fas fa-trash-alt pr-1'
         onClick={() =>
@@ -20,7 +22,7 @@ class DeleteTaskButton extends Component {
           )
         }
       ></div>
-    );
+    ) : null;
   }
 }
 
@@ -29,4 +31,8 @@ DeleteTaskButton.proptTypes = {
   sequence: ProptTypes.object.isRequired
 };
 
-export default connect(null, { deleteTask })(DeleteTaskButton);
+const mapStateToProps = state => ({
+  roles: state.auth.user.roles
+});
+
+export default connect(mapStateToProps, { deleteTask })(DeleteTaskButton);

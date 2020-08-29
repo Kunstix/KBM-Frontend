@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import UserSuggestionPopup from '../popup/UserSuggestionPopup';
+import { showForPm } from '../../../utils/auth/role';
+import { connect } from 'react-redux';
 
 class AssignUserButton extends Component {
   constructor() {
@@ -16,8 +18,9 @@ class AssignUserButton extends Component {
   }
 
   render() {
-    const { projectID, sequence } = this.props;
-    return (
+    const { projectID, sequence, roles } = this.props;
+    const showButton = showForPm(roles);
+    return showButton ? (
       <div>
         <div
           className='icon-action fas fa-user-edit pl-1'
@@ -31,8 +34,12 @@ class AssignUserButton extends Component {
           />
         ) : null}
       </div>
-    );
+    ) : null;
   }
 }
 
-export default AssignUserButton;
+const mapStateToProps = state => ({
+  roles: state.auth.user.roles
+});
+
+export default connect(mapStateToProps, null)(AssignUserButton);

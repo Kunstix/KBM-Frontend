@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getBacklogByUser, deleteTask } from '../../../actions/backlogActions';
 import PropTypes from 'prop-types';
 import TaskOverviewTable from './TaskOverviewTable';
+import TaskOverviewHead from './TaskOverviewHead';
 
 class TaskOverview extends Component {
   componentDidMount() {
@@ -12,10 +13,9 @@ class TaskOverview extends Component {
   render() {
     const { tasks } = this.props;
     return (
-      <div className='row w-100 pl-5'>
-        <div className='col-md-12 mb-3'>
-          <h3 className='text-primary font-weight-bold'>Tasks Overview</h3>
-        </div>
+      <div className='row w-100 pl-5 pr-5'>
+        <TaskOverviewHead />
+        <hr />
         <div className='col-md-12 table-responsive'>
           <TaskOverviewTable tasks={tasks} />
         </div>

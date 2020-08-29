@@ -13,10 +13,9 @@ class PersonalStatisticsView extends Component {
   render() {
     const { tasks } = this.props.backlog;
     const { username } = this.props;
-    const { projectID } = this.props.match.params;
     return (
-      <div className='h-75 pl-4'>
-        <PersonalStatisticsViewHead projectID={projectID} username={username} />
+      <div className='h-75 pl-5 pr-5'>
+        <PersonalStatisticsViewHead username={username} />
         <hr />
         <PersonalStatisticsQuateredView tasks={tasks} />
       </div>

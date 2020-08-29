@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import RemoveUserButton from '../buttons/RemoveUserButton';
 
 class UserTableItem extends Component {
   onActivate = active => {
@@ -43,14 +44,7 @@ class UserTableItem extends Component {
             />
           </td>
         )}
-        {!isManage && (
-          <td>
-            <div
-              className='pl-2 fas fa-minus-circle table-action '
-              onClick={() => onRemove()}
-            />
-          </td>
-        )}
+        <RemoveUserButton isManage={isManage} onRemove={onRemove} />
       </tr>
     );
   }

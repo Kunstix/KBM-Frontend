@@ -18,11 +18,11 @@ class ProjectView extends Component {
   }
 
   render() {
-    const { tasks, users } = this.props;
+    const { tasks, users, project } = this.props;
     return (
       <div className='container h-75 pl-4 pr-4'>
         <div className='row h-50'>
-          <ProjectViewHead project={this.props.project} />
+          <ProjectViewHead project={project} />
         </div>
         <div className='row h-50'>
           <div className='col-md-8 h-100'>
@@ -34,12 +34,12 @@ class ProjectView extends Component {
           <div className='col-md-4 h-100'>
             <div className='banner d-flex justify-content-between'>
               <h6>Assigned Personell </h6>
-              <AssignUserButton projectID={this.props.project.projectID} />
+              <AssignUserButton projectID={project.projectID} />
             </div>
             <div className='h-100 overflow-auto pt-4'>
               <UserOverview
                 users={users}
-                projectID={this.props.project.projectID}
+                projectID={project.projectID}
                 simple
               />
             </div>

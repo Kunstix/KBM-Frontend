@@ -7,7 +7,7 @@ import TaskCountBadge from '../../tasks/charts/TaskCountBadge';
 export default class PersonalStatisticsQuateredView extends Component {
   render() {
     const { tasks } = this.props;
-    return (
+    return tasks.length > 0 ? (
       <div className='h-100 p-0 d-flex justify-content-center align-items-center'>
         <div className='row w-75 h-100 mr-0'>
           <div className='col-md-6 d-flex flex-column border-right'>
@@ -26,6 +26,8 @@ export default class PersonalStatisticsQuateredView extends Component {
           </div>
         </div>
       </div>
+    ) : (
+      <div className='alert alert-secondary'>No Data for you.</div>
     );
   }
 }

@@ -5,6 +5,7 @@ export default class TaskOverviewHead extends Component {
     return (
       <div className='col-md-12 table-responsive mb-3'>
         <h3 className='text-primary font-weight-bold'>Tasks Overview</h3>
+        <hr />
       </div>
     );
   }

@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { dontShowForWatcher } from '../../../utils/auth/role';
 
-export default class UpdateTaskButton extends Component {
+class UpdateTaskButton extends Component {
   render() {
-    const { projectID, sequence, banner = false } = this.props;
-    return (
+    const { projectID, sequence, banner = false, roles } = this.props;
+    const showButton = dontShowForWatcher(roles);
+    return showButton ? (
       <Link
         className={`fa fa-edit pl-1 ${banner ? 'icon-action' : ''}`}
         to={`/updateTask/${projectID}/${sequence}`}
       ></Link>
-    );
+    ) : null;
   }
 }
+
+const mapStateToProps = state => ({
+  roles: state.auth.user.roles
+});
+
+export default connect(mapStateToProps, null)(UpdateTaskButton);

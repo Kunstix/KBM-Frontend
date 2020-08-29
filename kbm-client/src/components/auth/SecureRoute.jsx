@@ -3,16 +3,20 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const SecuredRoute = ({ component: Component, auth, ...otherProps }) => (
+const SecuredRoute = ({ component: Component, roles, auth, ...otherProps }) => (
   <Route
     {...otherProps}
-    render={props =>
-      auth.validToken === true ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to='/login' />
-      )
-    }
+    render={props => {
+      if (auth.validToken === true) {
+        if (roles && !roles.some(role => auth.user.roles.indexOf(role) >= 0)) {
+          return <Redirect to={{ pathname: '/dashboard' }} />;
+        } else {
+          return <Component {...props} />;
+        }
+      } else {
+        return <Redirect to='/login' />;
+      }
+    }}
   />
 );
 

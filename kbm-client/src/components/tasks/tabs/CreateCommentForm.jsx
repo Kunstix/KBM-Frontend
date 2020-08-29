@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createComment } from '../../../actions/commentActions';
+import { dontShowForWatcher } from '../../../utils/auth/role';
 
 class CreateCommentForm extends Component {
   constructor(props) {
@@ -39,7 +40,8 @@ class CreateCommentForm extends Component {
 
   render() {
     const { errors } = this.state;
-    return (
+    const showButton = dontShowForWatcher(this.props.roles);
+    return showButton ? (
       <form
         className='d-flex justify-content-center'
         onSubmit={event => this.onSubmit(event)}
@@ -61,7 +63,7 @@ class CreateCommentForm extends Component {
           Comment
         </button>
       </form>
-    );
+    ) : null;
   }
 }
 
@@ -70,6 +72,7 @@ CreateCommentForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  roles: state.auth.user.roles,
   errors: state.errors.errors
 });
 

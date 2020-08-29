@@ -5,7 +5,7 @@ import TaskOverviewTableBody from './TaskOverviewTableBody';
 export default class TaskOverviewTable extends Component {
   render() {
     const { tasks, simple } = this.props;
-    return (
+    return tasks.length > 0 ? (
       <table
         className='table table-striped table-sm'
         cellSpacing='0'
@@ -14,6 +14,8 @@ export default class TaskOverviewTable extends Component {
         <TaskOverviewTableHead simple={simple} />
         <TaskOverviewTableBody tasks={tasks} simple={simple} />
       </table>
+    ) : (
+      <div className='alert alert-secondary'>No assigned tasks for you.</div>
     );
   }
 }
