@@ -48,10 +48,10 @@ class Register extends Component {
     const { errors } = this.state;
     return (
       <div className='register'>
-        <div className='container'>
-          <div className='row'>
+        <div className='container mt-5 pb-4 border border-light rounded'>
+          <div className='row shadow'>
             <div className='col-md-8 m-auto'>
-              <h1 className='display-5 text-center'>Sign Up</h1>
+              <h4 className='display-5 text-center pt-3'>Register</h4>
               <p className='lead text-center'>Create your Account</p>
               <form onSubmit={event => this.onSubmit(event)}>
                 <div className='form-group'>

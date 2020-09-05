@@ -22,15 +22,20 @@ export const createNewUser = (newUser, history) => async dispatch => {
 export const login = (loginData, history) => async dispatch => {
   try {
     const res = await axios.post('/api/auth/login', loginData);
-    const { token } = res.data;
-    localStorage.setItem('jwtToken', token);
-    setJWTToken(token);
-    const decoded = jwt_decode(token);
+    setLoginData(res.data, history, dispatch);
+  } catch (err) {
     dispatch({
-      type: SET_CURRENT_USER,
-      payload: decoded
+      type: GET_ERRORS,
+      payload: err.response.data
     });
-    history.push('/dashboard');
+  }
+};
+
+export const loginAs = (role, history) => async dispatch => {
+  try {
+    console.log('click');
+    const res = await axios.post(`/api/test/${role}`);
+    setLoginData(res.data, history, dispatch);
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
@@ -46,4 +51,16 @@ export const logout = () => dispatch => {
     type: LOGOUT,
     payload: {}
   });
+};
+
+const setLoginData = (data, history, dispatch) => {
+  const { token } = data;
+  localStorage.setItem('jwtToken', token);
+  setJWTToken(token);
+  const decoded = jwt_decode(token);
+  dispatch({
+    type: SET_CURRENT_USER,
+    payload: decoded
+  });
+  history.push('/dashboard');
 };

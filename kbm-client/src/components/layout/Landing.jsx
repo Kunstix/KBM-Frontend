@@ -16,7 +16,7 @@ class Landing extends Component {
           <div className='container'>
             <div className='row'>
               <div className='col-md-12 text-center'>
-                <h1 className='display-3 mb-4'>Personal Kanban Tool</h1>
+                <h1 className='display-3 mb-4'>Kanban Tracker Tool</h1>
                 <p className='lead'>
                   Create your account to join active projects or start your own
                 </p>
